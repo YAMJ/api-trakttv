@@ -19,7 +19,9 @@
  *
  *      Web: https://github.com/YAMJ/api-trakttv
  */
-package org.yamj.api.wrapper.trakt.methods;
+package org.yamj.api.trakttv.service;
+
+import org.yamj.api.trakttv.AbstractTests;
 
 import java.util.List;
 import org.junit.Assert;
@@ -28,7 +30,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yamj.api.trakttv.model.*;
 import org.yamj.api.trakttv.model.enumeration.Extended;
-import org.yamj.api.wrapper.trakt.AbstractTests;
 
 public class ShowServiceTest extends AbstractTests {
 

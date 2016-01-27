@@ -19,44 +19,35 @@
  *
  *      Web: https://github.com/YAMJ/api-trakttv
  */
-package org.yamj.api.wrapper.trakt.methods;
+package org.yamj.api.trakttv.service;
 
-import java.util.List;
+import org.yamj.api.trakttv.AbstractTests;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yamj.api.trakttv.model.Episode;
 import org.yamj.api.trakttv.model.Ratings;
-import org.yamj.api.trakttv.model.Season;
 import org.yamj.api.trakttv.model.enumeration.Extended;
-import org.yamj.api.wrapper.trakt.AbstractTests;
 
-public class SeasonServiceTest extends AbstractTests {
+public class EpisodeServiceTest extends AbstractTests {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SeasonServiceTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EpisodeServiceTest.class);
 
     @Test
-    public void testGetSeasons() {
-        LOG.info("testGetSeasons");
-        final List<Season> seasons =  getTraktTvApi().seasonService().getSeasons("the-flash-2014");
-        Assert.assertTrue(seasons.size() > 1);
-        LOG.debug("{}", seasons);
+    public void testGetEpisode() {
+        LOG.info("testGetEpisode");
+        final Episode episode = getTraktTvApi().episodeService().getEpisode("the-flash-2014", 1, 5, Extended.FULLIMAGES);
+        Assert.assertEquals(Integer.valueOf(999423), episode.getIds().trakt());
+        LOG.debug("{}", episode);
     }
 
     @Test
     public void testGetRatings() {
         LOG.info("testGetRatings");
-        final Ratings ratings =  getTraktTvApi().seasonService().getRatings("the-flash-2014", 1);
+        final Ratings ratings =  getTraktTvApi().episodeService().getRatings("the-flash-2014", 1, 5);
         Assert.assertTrue(ratings.getRating() > 7.0d);
         LOG.debug("{}", ratings);
-    }
-
-    @Test
-    public void testGetEpisodes() {
-        LOG.info("testGetEpisodes");
-        final List<Episode> episodes =  getTraktTvApi().seasonService().getEpisodes("the-flash-2014", 1, Extended.FULLIMAGES);
-        Assert.assertEquals(23, episodes.size());
-        LOG.debug("{}", episodes);
     }
 }

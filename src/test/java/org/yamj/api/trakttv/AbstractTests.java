@@ -19,7 +19,7 @@
  *
  *      Web: https://github.com/YAMJ/api-trakttv
  */
-package org.yamj.api.wrapper.trakt;
+package org.yamj.api.trakttv;
 
 import static org.junit.Assert.fail;
 
