@@ -21,14 +21,13 @@
  */
 package org.yamj.api.trakttv;
 
-import static org.junit.Assert.fail;
-
 import java.io.File;
 import java.util.Properties;
+import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AbstractTests {
+public abstract class AbstractTests {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractTests.class);
     private static final String PROP_FIlENAME = "testing.properties";
@@ -54,11 +53,11 @@ public class AbstractTests {
                 props.setProperty("Client_Secret", "INSERT_YOUR_CLIENT_SECRET_HERE");
 
                 TestLogger.saveProperties(props, f, "Properties file for tests");
-                fail("Failed to get key information from properties file '" + PROP_FIlENAME + "'");
+                Assert.fail("Failed to get key information from properties file '" + PROP_FIlENAME + "'");
             }
         }
 
-        traktTvApi = new TraktTvApi(props.getProperty("Client_ID"));
+        traktTvApi = new TraktTvApi(props.getProperty("Client_ID"), props.getProperty("Client_Secret"));
         return traktTvApi;
     }
 }

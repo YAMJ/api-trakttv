@@ -23,42 +23,36 @@ package org.yamj.api.trakttv.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public final class TokenResponse {
+public class TokenRequest {
 
-    @JsonProperty("access_token")
-    private String accessToken;
-    @JsonProperty("refresh_token")
-    private String refreshToken;
-    @JsonProperty("token_type")
-    private String tokenType;
-    @JsonProperty("expires_in")
-    private Integer expiresIn;
-    @JsonProperty("created_at")
-    private Integer createdAt;
-    @JsonProperty("scope")
-    private String scope;
-    
-    public String getAccessToken() {
-        return accessToken;
+    @JsonProperty("code")
+    private String code;
+    @JsonProperty("client_id")
+    private String clientId;
+    @JsonProperty("client_secret")
+    private String clientSecret;
+    @JsonProperty("redirect_uri")
+    private String redirectUri;
+    @JsonProperty("grant_type")
+    private String grantType;
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getRefreshToken() {
-        return refreshToken;
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
-    public String getTokenType() {
-        return tokenType;
+    public void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
     }
 
-    public Integer getExpiresIn() {
-        return expiresIn;
+    public void setRedirectUri(String redirectUri) {
+        this.redirectUri = redirectUri;
     }
 
-    public Integer getCreatedAt() {
-        return createdAt;
-    }
-
-    public String getScope() {
-        return scope;
+    public void setGrantType(String grantType) {
+        this.grantType = grantType;
     }
 }

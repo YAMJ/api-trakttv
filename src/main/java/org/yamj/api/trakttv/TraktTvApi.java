@@ -23,12 +23,23 @@ package org.yamj.api.trakttv;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.yamj.api.common.exception.ApiExceptionType;
+import org.yamj.api.common.http.DigestedResponse;
+import org.yamj.api.common.http.DigestedResponseReader;
 import org.yamj.api.common.http.SimpleHttpClientBuilder;
+import org.yamj.api.trakttv.auth.TokenRequest;
+import org.yamj.api.trakttv.auth.TokenResponse;
 import org.yamj.api.trakttv.service.*;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
@@ -43,14 +54,19 @@ import retrofit.converter.JacksonConverter;
 public class TraktTvApi {
 
     private static final Logger LOG = LoggerFactory.getLogger(TraktTvApi.class);
+    
     private static final String TRAKT_API_URL = "https://api-v2launch.trakt.tv";
+    private static final String TRAKT_TOKEN_URL = TRAKT_API_URL + "/oauth/token";
     private static final String HEADER_AUTHORIZATION = "Authorization";
     private static final String HEADER_TRAKT_API_KEY = "trakt-api-key";
     private static final String HEADER_TRAKT_API_VERSION = "trakt-api-version";
     private static final String HEADER_TRAKT_API_VERSION_2 = "2";
 
     private final String clientId;
+    private final String clientSecret;
     private final HttpClient httpClient;
+    private final ObjectMapper objectMapper;
+    private final Charset UTF8 = Charset.forName("UTF-8");
 
     private String accessToken;
     private boolean isDebug;
@@ -60,21 +76,24 @@ public class TraktTvApi {
      * Create the API
      * 
      * @param clientId the client ID
+     * @param clientSecret the client secret
      */
-    public TraktTvApi(final String clientId) {
-        this(clientId, new SimpleHttpClientBuilder().build());
+    public TraktTvApi(final String clientId, final String clientSecret) {
+        this(clientId, clientSecret, new SimpleHttpClientBuilder().build());
     }
     
     /**
      * Create the API
      *
      * @param clientId the client ID
+     * @param clientSecret the client secret
      * @param httpClient the HTTP client to use for requesting web pages
      */
-    public TraktTvApi(final String clientId, final HttpClient httpClient) {
+    public TraktTvApi(final String clientId, final String clientSecret, final HttpClient httpClient) {
         this.clientId = clientId;
+        this.clientSecret = clientSecret;
         this.httpClient = httpClient;
-        LOG.trace("Using client ID: {}", clientId);
+        this.objectMapper = new ObjectMapper().registerModule(new JodaModule());
     }
 
     public TraktTvApi setAccessToken(String accessToken) {
@@ -98,7 +117,7 @@ public class TraktTvApi {
             RestAdapter.Builder builder = new RestAdapter.Builder()
                 .setEndpoint(TRAKT_API_URL)
                 .setClient(new ApacheClient(httpClient))
-                .setConverter(new JacksonConverter(new ObjectMapper().registerModule(new JodaModule())))
+                .setConverter(new JacksonConverter(objectMapper))
                 .setErrorHandler(new TraktTvErrorHandler())
                 .setRequestInterceptor(new RequestInterceptor() {
                     @Override
@@ -120,6 +139,46 @@ public class TraktTvApi {
         }
 
         return restAdapter;
+    }
+    
+    // AUTHORIZATION
+    
+    public TokenResponse requestAccessTokenByPin(final String pin) throws TraktTvException {
+        StringEntity body;
+        try {
+            TokenRequest request = new TokenRequest();
+            request.setClientId(clientId);
+            request.setClientSecret(clientSecret);
+            request.setCode(pin);
+            request.setGrantType("authorization_code");
+            request.setRedirectUri("urn:ietf:wg:oauth:2.0:oob");
+            body = new StringEntity(objectMapper.writeValueAsString(request), UTF8);
+        } catch (Exception e) {
+            throw new TraktTvException(ApiExceptionType.MAPPING_FAILED, "Failed to build request body");
+        }
+            
+        LOG.debug("Request authorization via PIN");
+        
+        try {
+            HttpPost httpPost = new HttpPost();
+            httpPost.setURI(new URI(TRAKT_TOKEN_URL));
+            httpPost.addHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType());
+            httpPost.setEntity(body);
+            
+            DigestedResponse digestedResponse = DigestedResponseReader.postContent(httpClient, httpPost, UTF8);
+            switch(digestedResponse.getStatusCode()) {
+            case 200:
+                return objectMapper.readValue(digestedResponse.getContent(), TokenResponse.class);
+            case 401:
+                throw new TraktTvException(ApiExceptionType.AUTH_FAILURE, "Invalid PIN provided", 401, "");
+            case 403:
+                throw new TraktTvException(ApiExceptionType.AUTH_FAILURE, "Invalid client credentials", 403, "");
+            default:
+                throw new TraktTvException(ApiExceptionType.UNKNOWN_CAUSE, "Unknown error", digestedResponse.getStatusCode(), "");
+            }
+        } catch (URISyntaxException | IOException e) {
+            throw new TraktTvException(ApiExceptionType.MAPPING_FAILED, "Failed to access Trakt.TV");
+        }
     }
     
     // SERVICES
