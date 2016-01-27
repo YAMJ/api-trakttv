@@ -61,6 +61,7 @@ public class TraktTvApi {
     private static final String HEADER_TRAKT_API_KEY = "trakt-api-key";
     private static final String HEADER_TRAKT_API_VERSION = "trakt-api-version";
     private static final String HEADER_TRAKT_API_VERSION_2 = "2";
+    private static final String EMPTY_URL = "";
 
     private final String clientId;
     private final String clientSecret;
@@ -170,14 +171,16 @@ public class TraktTvApi {
             case 200:
                 return objectMapper.readValue(digestedResponse.getContent(), TokenResponse.class);
             case 401:
-                throw new TraktTvException(ApiExceptionType.AUTH_FAILURE, "Invalid PIN provided", 401, "");
+                throw new TraktTvException(ApiExceptionType.AUTH_FAILURE, "Invalid PIN provided", 401, EMPTY_URL);
             case 403:
-                throw new TraktTvException(ApiExceptionType.AUTH_FAILURE, "Invalid client credentials", 403, "");
+                throw new TraktTvException(ApiExceptionType.AUTH_FAILURE, "Invalid client credentials", 403, EMPTY_URL);
+            case 503:
+                throw new TraktTvException(ApiExceptionType.CONNECTION_ERROR, "Request failed", 503, EMPTY_URL);
             default:
-                throw new TraktTvException(ApiExceptionType.UNKNOWN_CAUSE, "Unknown error", digestedResponse.getStatusCode(), "");
+                throw new TraktTvException(ApiExceptionType.UNKNOWN_CAUSE, "Unknown error", digestedResponse.getStatusCode(), EMPTY_URL);
             }
         } catch (URISyntaxException | IOException e) {
-            throw new TraktTvException(ApiExceptionType.MAPPING_FAILED, "Failed to access Trakt.TV");
+            throw new TraktTvException(ApiExceptionType.CONNECTION_ERROR, "Request failed", 503, EMPTY_URL, e);
         }
     }
     
