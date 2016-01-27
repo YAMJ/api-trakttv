@@ -27,7 +27,6 @@ import java.io.File;
 import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yamj.api.trakttv.TraktTvApi;
 
 public class AbstractTests {
 
@@ -53,8 +52,6 @@ public class AbstractTests {
 
                 props.setProperty("Client_ID", "INSERT_YOUR_CLIENT_ID_HERE");
                 props.setProperty("Client_Secret", "INSERT_YOUR_CLIENT_SECRET_HERE");
-                props.setProperty("Username", "INSERT_YOUR_USERNAME_HERE");
-                props.setProperty("Password", "INSERT_YOUR_PASSWORD_HERE");
 
                 TestLogger.saveProperties(props, f, "Properties file for tests");
                 fail("Failed to get key information from properties file '" + PROP_FIlENAME + "'");
