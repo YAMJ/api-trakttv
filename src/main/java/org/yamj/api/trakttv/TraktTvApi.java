@@ -94,7 +94,6 @@ public class TraktTvApi {
     }
     
     protected RestAdapter getRestAdapter() {
-        System.err.println("CLIENT-ID: " + clientId);
         if (restAdapter == null) {
             RestAdapter.Builder builder = new RestAdapter.Builder()
                 .setEndpoint(TRAKT_API_URL)
