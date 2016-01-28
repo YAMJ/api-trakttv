@@ -175,9 +175,9 @@ public class TraktTvApi {
             case 403:
                 throw new TraktTvException(ApiExceptionType.AUTH_FAILURE, "Invalid client credentials", 403, EMPTY_URL);
             case 503:
-                throw new TraktTvException(ApiExceptionType.CONNECTION_ERROR, "Request failed", 503, EMPTY_URL);
+                throw new TraktTvException(ApiExceptionType.CONNECTION_ERROR, "No connection to Trakt.TV", 503, EMPTY_URL);
             default:
-                throw new TraktTvException(ApiExceptionType.UNKNOWN_CAUSE, "Unknown error", digestedResponse.getStatusCode(), EMPTY_URL);
+                throw new TraktTvException(ApiExceptionType.UNKNOWN_CAUSE, "Authorization failed", digestedResponse.getStatusCode(), EMPTY_URL);
             }
         } catch (URISyntaxException | IOException e) {
             throw new TraktTvException(ApiExceptionType.CONNECTION_ERROR, "Request failed", 503, EMPTY_URL, e);
