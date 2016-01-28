@@ -16,7 +16,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>API-Allocine</name>
+    <name>API-TraktTV</name>
     <description>API for the Trakt.TV Website</description>
     <url>https://github.com/YAMJ/api-trakttv</url>
     <inceptionYear>2016</inceptionYear>
