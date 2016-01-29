@@ -169,15 +169,24 @@ public class TraktTvApi {
             DigestedResponse digestedResponse = DigestedResponseReader.postContent(httpClient, httpPost, UTF8);
             switch(digestedResponse.getStatusCode()) {
             case 200:
+            case 201:
                 return objectMapper.readValue(digestedResponse.getContent(), TokenResponse.class);
+            case 400:
+                throw new TraktTvException(ApiExceptionType.MAPPING_FAILED, "Request couldn't be parsed", 400, EMPTY_URL);
             case 401:
-                throw new TraktTvException(ApiExceptionType.AUTH_FAILURE, "Invalid PIN provided", 401, EMPTY_URL);
+                throw new TraktTvException(ApiExceptionType.AUTH_FAILURE, "OAuth must be provided", 401, EMPTY_URL);
             case 403:
-                throw new TraktTvException(ApiExceptionType.AUTH_FAILURE, "Invalid client credentials", 403, EMPTY_URL);
+                throw new TraktTvException(ApiExceptionType.AUTH_FAILURE, "Invalid API key or unapproved app", 403, EMPTY_URL);
+            case 422:
+                throw new TraktTvException(ApiExceptionType.MAPPING_FAILED, "Validation errors", 422, EMPTY_URL);
+            case 500:
             case 503:
-                throw new TraktTvException(ApiExceptionType.CONNECTION_ERROR, "No connection to Trakt.TV", 503, EMPTY_URL);
+            case 520:
+            case 521:
+            case 522:
+                throw new TraktTvException(ApiExceptionType.HTTP_503_ERROR, "Internal server error", digestedResponse.getStatusCode(), EMPTY_URL);
             default:
-                throw new TraktTvException(ApiExceptionType.UNKNOWN_CAUSE, "Authorization failed", digestedResponse.getStatusCode(), EMPTY_URL);
+                throw new TraktTvException(ApiExceptionType.UNKNOWN_CAUSE, "Unknown error", digestedResponse.getStatusCode(), EMPTY_URL);
             }
         } catch (URISyntaxException | IOException e) {
             throw new TraktTvException(ApiExceptionType.CONNECTION_ERROR, "Request failed", 503, EMPTY_URL, e);

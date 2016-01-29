@@ -23,6 +23,7 @@ package org.yamj.api.trakttv;
 
 import java.io.File;
 import java.util.Properties;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,6 +52,7 @@ public abstract class AbstractTests {
 
                 props.setProperty("Client_ID", "INSERT_YOUR_CLIENT_ID_HERE");
                 props.setProperty("Client_Secret", "INSERT_YOUR_CLIENT_SECRET_HERE");
+                props.setProperty("Access_Token", "INSERT_VALID_ACCESS_TOKEN_HERE");
 
                 TestLogger.saveProperties(props, f, "Properties file for tests");
                 Assert.fail("Failed to get key information from properties file '" + PROP_FIlENAME + "'");
@@ -58,6 +60,9 @@ public abstract class AbstractTests {
         }
 
         traktTvApi = new TraktTvApi(props.getProperty("Client_ID"), props.getProperty("Client_Secret"));
+        if (StringUtils.isNotBlank(props.getProperty("Access_Token"))) {
+            traktTvApi.setAccessToken(props.getProperty("Access_Token"));
+        }
         return traktTvApi;
     }
 }
