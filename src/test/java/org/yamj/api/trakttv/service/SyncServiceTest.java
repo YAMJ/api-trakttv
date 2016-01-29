@@ -48,7 +48,7 @@ public class SyncServiceTest extends AbstractTests {
         LOG.debug("{}", lastActivities);
     }
 
-    @Test
+    @Ignore
     public void getCollectionMovies() {
         LOG.info("getCollectionMovies");
         final List<TrackedMovie> list = getTraktTvApi().syncService().getCollectionMovies(Extended.MINIMAL);
@@ -57,7 +57,7 @@ public class SyncServiceTest extends AbstractTests {
         }
     }
 
-    @Test
+    @Ignore
     public void getCollectionShows() {
         LOG.info("getCollectionShows");
         final List<TrackedShow> list = getTraktTvApi().syncService().getCollectionShows(Extended.MINIMAL);
@@ -66,7 +66,7 @@ public class SyncServiceTest extends AbstractTests {
         }
     }
 
-    @Test
+    @Ignore
     public void getWatchedMovies() {
         LOG.info("getWatchedMovies");
         final List<TrackedMovie> list = getTraktTvApi().syncService().getWatchedMovies(Extended.MINIMAL);
@@ -75,7 +75,7 @@ public class SyncServiceTest extends AbstractTests {
         }
     }
 
-    @Test
+    @Ignore
     public void getWatchedShows() {
         LOG.info("getWatchedShows");
         final List<TrackedShow> list = getTraktTvApi().syncService().getWatchedShows(Extended.MINIMAL);
