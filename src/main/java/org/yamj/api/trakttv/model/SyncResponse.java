@@ -24,51 +24,50 @@ package org.yamj.api.trakttv.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.List;
 
 @JsonInclude(Include.NON_DEFAULT)
-public class TrackedSeason extends AbstractJsonMapping {
+public class SyncResponse extends AbstractJsonMapping {
 
-    private static final long serialVersionUID = 4628880445255761591L;
+    private static final long serialVersionUID = 4569733310867139513L;
     
-    @JsonProperty("number")
-    private Integer number;
-    @JsonProperty("episodes")
-    private List<TrackedEpisode> episodes;
-    @JsonProperty("aired")
-    private Integer aired;
-    @JsonProperty("completed")
-    private Integer completed;
+    @JsonProperty("added")
+    private SyncStats added;
+    @JsonProperty("existing")
+    private SyncStats existing;
+    @JsonProperty("deleted")
+    private SyncStats deleted;
+    @JsonProperty("not_found")
+    private SyncErrors notFound;
 
-    public Integer getNumber() {
-        return number;
+    public SyncStats getAdded() {
+        return added;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setAdded(SyncStats added) {
+        this.added = added;
     }
 
-    public List<TrackedEpisode> getEpisodes() {
-        return episodes;
+    public SyncStats getExisting() {
+        return existing;
     }
 
-    public void setEpisodes(List<TrackedEpisode> episodes) {
-        this.episodes = episodes;
+    public void setExisting(SyncStats existing) {
+        this.existing = existing;
     }
 
-    public Integer getAired() {
-        return aired;
+    public SyncStats getDeleted() {
+        return deleted;
     }
 
-    public void setAired(Integer aired) {
-        this.aired = aired;
+    public void setDeleted(SyncStats deleted) {
+        this.deleted = deleted;
     }
 
-    public Integer getCompleted() {
-        return completed;
+    public SyncErrors getNotFound() {
+        return notFound;
     }
 
-    public void setCompleted(Integer completed) {
-        this.completed = completed;
+    public void setNotFound(SyncErrors notFound) {
+        this.notFound = notFound;
     }
 }

@@ -27,48 +27,58 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 @JsonInclude(Include.NON_DEFAULT)
-public class TrackedSeason extends AbstractJsonMapping {
+public class SyncErrors extends AbstractJsonMapping {
 
-    private static final long serialVersionUID = 4628880445255761591L;
-    
-    @JsonProperty("number")
-    private Integer number;
+    private static final long serialVersionUID = -5898965470625711227L;
+
+    @JsonProperty("movies")
+    private List<SyncMovie> movies;
+    @JsonProperty("movies")
+    private List<SyncShow> shows;
+    @JsonProperty("seasons")
+    private List<SyncSeason> seasons;
     @JsonProperty("episodes")
-    private List<TrackedEpisode> episodes;
-    @JsonProperty("aired")
-    private Integer aired;
-    @JsonProperty("completed")
-    private Integer completed;
+    private List<SyncEpisode> episodes;
+    @JsonProperty("ids")
+    private List<Integer> ids;
 
-    public Integer getNumber() {
-        return number;
+    public List<SyncMovie> getMovies() {
+        return movies;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setMovies(List<SyncMovie> movies) {
+        this.movies = movies;
     }
 
-    public List<TrackedEpisode> getEpisodes() {
+    public List<SyncShow> getShows() {
+        return shows;
+    }
+
+    public void setShows(List<SyncShow> shows) {
+        this.shows = shows;
+    }
+
+    public List<SyncSeason> getSeasons() {
+        return seasons;
+    }
+
+    public void setSeasons(List<SyncSeason> seasons) {
+        this.seasons = seasons;
+    }
+
+    public List<SyncEpisode> getEpisodes() {
         return episodes;
     }
 
-    public void setEpisodes(List<TrackedEpisode> episodes) {
+    public void setEpisodes(List<SyncEpisode> episodes) {
         this.episodes = episodes;
     }
 
-    public Integer getAired() {
-        return aired;
+    public List<Integer> getIds() {
+        return ids;
     }
 
-    public void setAired(Integer aired) {
-        this.aired = aired;
-    }
-
-    public Integer getCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(Integer completed) {
-        this.completed = completed;
+    public void setIds(List<Integer> ids) {
+        this.ids = ids;
     }
 }

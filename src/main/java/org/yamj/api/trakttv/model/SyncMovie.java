@@ -27,58 +27,29 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
 
 @JsonInclude(Include.NON_DEFAULT)
-public class TrackedEpisode extends AbstractJsonMapping {
+public class SyncMovie extends AbstractJsonMapping {
 
-    private static final long serialVersionUID = 2992185219379302398L;
+    private static final long serialVersionUID = 8863410754213636522L;
     
-    @JsonProperty("number")
-    private Integer number;
+    @JsonProperty("ids")
+    private Ids ids;
     @JsonProperty("collected_at")
     private DateTime collectedAt;
-    @JsonProperty("plays")
-    private Integer plays;
-    @JsonProperty("last_watched_at")
-    private DateTime lastWatchedAt;
-    @JsonProperty("completed")
-    private Boolean completed;
+    @JsonProperty("watched_at")
+    private DateTime watchedAt;
 
-    public Integer getNumber() {
-        return number;
+    public SyncMovie ids(Ids ids) {
+        this.ids = ids;
+        return this;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
-
-    public DateTime getCollectedAt() {
-        return collectedAt;
-    }
-
-    public void setCollectedAt(DateTime collectedAt) {
+    public SyncMovie collectedAt(DateTime collectedAt) {
         this.collectedAt = collectedAt;
+        return this;
     }
 
-    public Integer getPlays() {
-        return plays;
-    }
-
-    public void setPlays(Integer plays) {
-        this.plays = plays;
-    }
-
-    public DateTime getLastWatchedAt() {
-        return lastWatchedAt;
-    }
-
-    public void setLastWatchedAt(DateTime lastWatchedAt) {
-        this.lastWatchedAt = lastWatchedAt;
-    }
-
-    public Boolean getCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(Boolean completed) {
-        this.completed = completed;
+    public SyncMovie watchedAt(DateTime watchedAt) {
+        this.watchedAt = watchedAt;
+        return this;
     }
 }

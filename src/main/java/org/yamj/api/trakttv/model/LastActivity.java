@@ -32,15 +32,15 @@ public class LastActivity extends AbstractJsonMapping {
     private static final long serialVersionUID = 9104360795837605387L;
 
     @JsonProperty("rated_at")
-    public DateTime ratedAt;
+    private DateTime ratedAt;
     @JsonProperty("watchlisted_at")
-    public DateTime watchlistedAt;
+    private DateTime watchlistedAt;
     @JsonProperty("commented_at")
-    public DateTime commentedAt;
+    private DateTime commentedAt;
     @JsonProperty("watched_at")
-    public DateTime watchedAt;
+    private DateTime watchedAt;
     @JsonProperty("collected_at")
-    public DateTime collectedAt;
+    private DateTime collectedAt;
 
     public DateTime getRatedAt() {
         return ratedAt;

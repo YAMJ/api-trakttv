@@ -24,65 +24,46 @@ package org.yamj.api.trakttv.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.List;
 import org.joda.time.DateTime;
 
 @JsonInclude(Include.NON_DEFAULT)
-public class TrackedMovie extends AbstractJsonMapping {
+public class SyncShow extends AbstractJsonMapping {
 
-    private static final long serialVersionUID = -5166374676916864677L;
+    private static final long serialVersionUID = -1098988476578510176L;
 
-    @JsonProperty("movie")
-    private Movie movie;
+    @JsonProperty("ids")
+    private Ids ids;
+    @JsonProperty("seasons")
+    private List<SyncSeason> seasons = new ArrayList<>();
     @JsonProperty("collected_at")
     private DateTime collectedAt;
-    @JsonProperty("last_watched_at")
-    private DateTime lastWatchedAt;
-    @JsonProperty("listed_at")
-    private DateTime listedAt;
-    @JsonProperty("plays")
-    private int plays;
+    @JsonProperty("watched_at")
+    private DateTime watchedAt;
 
-    public Movie getMovie() {
-        return movie;
+    public SyncShow ids(Ids ids) {
+        this.ids = ids;
+        return this;
     }
 
-    public void setMovie(Movie movie) {
-        this.movie = movie;
+    public SyncShow season(SyncSeason season) {
+        this.seasons.add(season);
+        return this;
     }
 
-    public DateTime getCollectedAt() {
-        return collectedAt;
+    public SyncShow seasons(List<SyncSeason> seasons) {
+        this.seasons.addAll(seasons);
+        return this;
     }
 
-    public void setCollectedAt(DateTime collectedAt) {
+    public SyncShow collectedAt(DateTime collectedAt) {
         this.collectedAt = collectedAt;
+        return this;
     }
 
-    public DateTime getLastWatchedAt() {
-        return lastWatchedAt;
-    }
-
-    public void setLastWatchedAt(DateTime lastWatchedAt) {
-        this.lastWatchedAt = lastWatchedAt;
-    }
-
-    public DateTime getListedAt() {
-        return listedAt;
-    }
-
-    public void setListedAt(DateTime listedAt) {
-        this.listedAt = listedAt;
-    }
-
-    public int getPlays() {
-        return plays;
-    }
-
-    public void setPlays(int plays) {
-        this.plays = plays;
-    }
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
+    public SyncShow watchedAt(DateTime watchedAt) {
+        this.watchedAt = watchedAt;
+        return this;
     }
 }

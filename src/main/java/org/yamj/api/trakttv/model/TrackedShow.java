@@ -33,25 +33,25 @@ public class TrackedShow extends AbstractJsonMapping {
     private static final long serialVersionUID = 7385737341624191326L;
     
     @JsonProperty("show")
-    public Show show;
+    private Show show;
     @JsonProperty("seasons")
-    public List<TrackedSeason> seasons;
+    private List<TrackedSeason> seasons;
     @JsonProperty("last_collected_at")
-    public DateTime lastCollectedAt;
+    private DateTime lastCollectedAt;
     @JsonProperty("listed_at")
-    public DateTime listedAt;
+    private DateTime listedAt;
     @JsonProperty("plays")
-    public Integer plays;
+    private Integer plays;
     @JsonProperty("last_watched_at")
-    public DateTime lastWatchedAt;
+    private DateTime lastWatchedAt;
     @JsonProperty("aired")
-    public Integer aired;
+    private Integer aired;
     @JsonProperty("completed")
-    public Integer completed;
+    private Integer completed;
     @JsonProperty("hidden_seasons")
-    public List<Season> hiddenSeasons;
+    private List<Season> hiddenSeasons;
     @JsonProperty("next_episode")
-    public Episode nextEpisode;
+    private Episode nextEpisode;
 
     public Show getShow() {
         return show;

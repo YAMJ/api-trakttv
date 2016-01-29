@@ -24,51 +24,58 @@ package org.yamj.api.trakttv.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
 import java.util.List;
 
 @JsonInclude(Include.NON_DEFAULT)
-public class TrackedSeason extends AbstractJsonMapping {
+public class SyncItems {
 
-    private static final long serialVersionUID = 4628880445255761591L;
-    
-    @JsonProperty("number")
-    private Integer number;
+    @JsonProperty("movies")
+    private List<SyncMovie> movies = new ArrayList<>();
+    @JsonProperty("shows")
+    private List<SyncShow> shows = new ArrayList<>();
     @JsonProperty("episodes")
-    private List<TrackedEpisode> episodes;
-    @JsonProperty("aired")
-    private Integer aired;
-    @JsonProperty("completed")
-    private Integer completed;
+    private List<SyncEpisode> episodes = new ArrayList<>();
+    @JsonProperty("ids")
+    private List<Integer> ids = new ArrayList<>();
 
-    public Integer getNumber() {
-        return number;
+    public SyncItems movie(SyncMovie movie) {
+        this.movies.add(movie);
+        return this;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public SyncItems movies(List<SyncMovie> movies) {
+        this.movies.addAll(movies);
+        return this;
     }
 
-    public List<TrackedEpisode> getEpisodes() {
-        return episodes;
+    public SyncItems shows(SyncShow show) {
+        this.shows.add(show);
+        return this;
     }
 
-    public void setEpisodes(List<TrackedEpisode> episodes) {
-        this.episodes = episodes;
+    public SyncItems shows(List<SyncShow> shows) {
+        this.shows.addAll(shows);
+        return this;
     }
 
-    public Integer getAired() {
-        return aired;
+    public SyncItems episodes(SyncEpisode episode) {
+        this.episodes.add(episode);
+        return this;
     }
 
-    public void setAired(Integer aired) {
-        this.aired = aired;
+    public SyncItems episodes(List<SyncEpisode> episodes) {
+        this.episodes.addAll(episodes);
+        return this;
     }
 
-    public Integer getCompleted() {
-        return completed;
+    public SyncItems ids(int id) {
+        this.ids.add(id);
+        return this;
     }
 
-    public void setCompleted(Integer completed) {
-        this.completed = completed;
+    public SyncItems ids(List<Integer> ids) {
+        this.ids.addAll(ids);
+        return this;
     }
 }

@@ -24,61 +24,46 @@ package org.yamj.api.trakttv.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.List;
 import org.joda.time.DateTime;
 
 @JsonInclude(Include.NON_DEFAULT)
-public class TrackedEpisode extends AbstractJsonMapping {
+public class SyncSeason extends AbstractJsonMapping {
 
-    private static final long serialVersionUID = 2992185219379302398L;
+    private static final long serialVersionUID = -404329921496126032L;
     
     @JsonProperty("number")
     private Integer number;
+    @JsonProperty("episodes")
+    private List<SyncEpisode> episodes = new ArrayList<>();
     @JsonProperty("collected_at")
     private DateTime collectedAt;
-    @JsonProperty("plays")
-    private Integer plays;
-    @JsonProperty("last_watched_at")
-    private DateTime lastWatchedAt;
-    @JsonProperty("completed")
-    private Boolean completed;
+    @JsonProperty("watched_at")
+    private DateTime watchedAt;
 
-    public Integer getNumber() {
-        return number;
-    }
-
-    public void setNumber(Integer number) {
+    public SyncSeason number(int number) {
         this.number = number;
+        return this;
     }
 
-    public DateTime getCollectedAt() {
-        return collectedAt;
+    public SyncSeason episode(SyncEpisode episode) {
+        this.episodes.add(episode);
+        return this;
     }
 
-    public void setCollectedAt(DateTime collectedAt) {
+    public SyncSeason episodes(List<SyncEpisode> episodes) {
+        this.episodes.addAll(episodes);
+        return this;
+    }
+
+    public SyncSeason collectedAt(DateTime collectedAt) {
         this.collectedAt = collectedAt;
+        return this;
     }
 
-    public Integer getPlays() {
-        return plays;
-    }
-
-    public void setPlays(Integer plays) {
-        this.plays = plays;
-    }
-
-    public DateTime getLastWatchedAt() {
-        return lastWatchedAt;
-    }
-
-    public void setLastWatchedAt(DateTime lastWatchedAt) {
-        this.lastWatchedAt = lastWatchedAt;
-    }
-
-    public Boolean getCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(Boolean completed) {
-        this.completed = completed;
+    public SyncSeason watchedAt(DateTime watchedAt) {
+        this.watchedAt = watchedAt;
+        return this;
     }
 }

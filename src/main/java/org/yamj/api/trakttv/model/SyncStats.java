@@ -21,64 +21,53 @@
  */
 package org.yamj.api.trakttv.model;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import org.joda.time.DateTime;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonRootName("lastActivities")
 @JsonInclude(Include.NON_DEFAULT)
-public class LastActivities extends AbstractJsonMapping {
+public class SyncStats extends AbstractJsonMapping {
 
-    private static final long serialVersionUID = 2756741955911197181L;
+    private static final long serialVersionUID = 5013104840696844829L;
 
-    @JsonProperty("all")
-    private DateTime all;
     @JsonProperty("movies")
-    private LastActivity movies;
-    @JsonProperty("episodes")
-    private LastActivity episodes;
+    private Integer movies;
     @JsonProperty("shows")
-    private LastActivity shows;
+    private Integer shows;
     @JsonProperty("seasons")
-    private LastActivity seasons;
+    private Integer seasons;
+    @JsonProperty("episodes")
+    private Integer episodes;
 
-    public DateTime getAll() {
-        return all;
-    }
-
-    public void setAll(DateTime all) {
-        this.all = all;
-    }
-
-    public LastActivity getMovies() {
+    public Integer getMovies() {
         return movies;
     }
 
-    public void setMovies(LastActivity movies) {
+    public void setMovies(Integer movies) {
         this.movies = movies;
     }
 
-    public LastActivity getEpisodes() {
-        return episodes;
-    }
-
-    public void setEpisodes(LastActivity episodes) {
-        this.episodes = episodes;
-    }
-
-    public LastActivity getShows() {
+    public Integer getShows() {
         return shows;
     }
 
-    public void setShows(LastActivity shows) {
+    public void setShows(Integer shows) {
         this.shows = shows;
     }
 
-    public LastActivity getSeasons() {
+    public Integer getSeasons() {
         return seasons;
     }
 
-    public void setSeasons(LastActivity seasons) {
+    public void setSeasons(Integer seasons) {
         this.seasons = seasons;
+    }
+
+    public Integer getEpisodes() {
+        return episodes;
+    }
+
+    public void setEpisodes(Integer episodes) {
+        this.episodes = episodes;
     }
 }
