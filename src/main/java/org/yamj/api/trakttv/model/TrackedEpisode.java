@@ -21,9 +21,12 @@
  */
 package org.yamj.api.trakttv.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
 
+@JsonInclude(Include.NON_DEFAULT)
 public class TrackedEpisode extends AbstractJsonMapping {
 
     private static final long serialVersionUID = 2992185219379302398L;

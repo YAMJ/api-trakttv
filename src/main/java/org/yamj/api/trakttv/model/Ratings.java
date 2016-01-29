@@ -21,11 +21,12 @@
  */
 package org.yamj.api.trakttv.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.util.Map;
 
 @JsonRootName("ratings")
+@JsonInclude(Include.NON_DEFAULT)
 public class Ratings extends AbstractJsonMapping {
 
     private static final long serialVersionUID = -4727520083071734970L;

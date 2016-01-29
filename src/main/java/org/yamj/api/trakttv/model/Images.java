@@ -21,10 +21,11 @@
  */
 package org.yamj.api.trakttv.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonRootName("images")
+@JsonInclude(Include.NON_DEFAULT)
 public class Images extends AbstractJsonMapping {
 
     private static final long serialVersionUID = 8364552027910009219L;

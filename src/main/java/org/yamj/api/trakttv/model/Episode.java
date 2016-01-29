@@ -21,11 +21,12 @@
  */
 package org.yamj.api.trakttv.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import org.joda.time.DateTime;
 
 @JsonRootName("episode")
+@JsonInclude(Include.NON_DEFAULT)
 public class Episode extends AbstractBaseMapping {
 
     private static final long serialVersionUID = -778163115746225871L;
