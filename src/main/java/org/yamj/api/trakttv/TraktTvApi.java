@@ -210,4 +210,8 @@ public class TraktTvApi {
     public EpisodeService episodeService() {
         return getRestAdapter().create(EpisodeService.class);
     }
+
+    public SyncService syncService() {
+        return getRestAdapter().create(SyncService.class);
+    }
 }

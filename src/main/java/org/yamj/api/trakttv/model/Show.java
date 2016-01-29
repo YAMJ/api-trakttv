@@ -25,7 +25,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import java.util.List;
 import org.joda.time.DateTime;
-import org.yamj.api.trakttv.model.enumeration.Status;
 
 @JsonRootName("show")
 public class Show extends AbstractBaseMapping {
@@ -48,8 +47,6 @@ public class Show extends AbstractBaseMapping {
     private String trailer;
     @JsonProperty("homepage")
     private String homepage;
-    @JsonProperty("status")
-    private Status status;
     @JsonProperty("language")
     private String language;
     @JsonProperty("genres")
@@ -119,14 +116,6 @@ public class Show extends AbstractBaseMapping {
 
     public void setHomepage(String homepage) {
         this.homepage = homepage;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
     }
 
     public String getLanguage() {
