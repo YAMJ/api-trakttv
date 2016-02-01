@@ -47,47 +47,53 @@ public class Ids extends AbstractJsonMapping {
         return trakt;
     }
 
-    public void trakt(Integer trakt) {
+    public Ids trakt(Integer trakt) {
         this.trakt = trakt;
+        return this;
     }
 
     public String slug() {
         return slug;
     }
 
-    public void slug(String slug) {
+    public Ids slug(String slug) {
         this.slug = slug;
+        return this;
     }
 
     public String imdb() {
         return imdb;
     }
 
-    public void imdb(String imdb) {
+    public Ids imdb(String imdb) {
         this.imdb = imdb;
+        return this;
     }
 
     public Integer tmdb() {
         return tmdb;
     }
 
-    public void tmdb(Integer tmdb) {
+    public Ids tmdb(Integer tmdb) {
         this.tmdb = tmdb;
+        return this;
     }
     
     public Integer tvdb() {
         return tvdb;
     }
 
-    public void tvdb(Integer tvdb) {
+    public Ids tvdb(Integer tvdb) {
         this.tvdb = tvdb;
+        return this;
     }
 
     public String tvRage() {
         return tvRage;
     }
 
-    public void tvRage(String tvRage) {
+    public Ids tvRage(String tvRage) {
         this.tvRage = tvRage;
+        return this;
     }
 }

@@ -27,9 +27,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yamj.api.trakttv.AbstractTests;
-import org.yamj.api.trakttv.model.LastActivities;
-import org.yamj.api.trakttv.model.TrackedMovie;
-import org.yamj.api.trakttv.model.TrackedShow;
+import org.yamj.api.trakttv.model.*;
 import org.yamj.api.trakttv.model.enumeration.Extended;
 
 public class SyncServiceTest extends AbstractTests {
@@ -82,5 +80,37 @@ public class SyncServiceTest extends AbstractTests {
         for (TrackedShow tracked : list) {
             LOG.debug("{}", tracked);
         }
+    }
+    
+    @Ignore
+    public void addItemsToCollection() {
+        LOG.info("addItemsToCollection");
+        SyncItems syncItems = new SyncItems().movie(new SyncMovie().ids(new Ids().imdb("tt2379713")));
+        SyncResponse response = getTraktTvApi().syncService().addItemsToCollection(syncItems);
+        LOG.debug("{}", response);
+    }
+
+    @Ignore
+    public void deleteItemsFromCollection() {
+        LOG.info("deleteItemsFromCollection");
+        SyncItems syncItems = new SyncItems().movie(new SyncMovie().ids(new Ids().imdb("tt2379713")));
+        SyncResponse response = getTraktTvApi().syncService().deleteItemsFromCollection(syncItems);
+        LOG.debug("{}", response);
+    }
+
+    @Ignore
+    public void addItemsToWatchedHistory() {
+        LOG.info("addItemsToWatchedHistory");
+        SyncItems syncItems = new SyncItems().movie(new SyncMovie().ids(new Ids().imdb("tt2379713")));
+        SyncResponse response = getTraktTvApi().syncService().addItemsToWatchedHistory(syncItems);
+        LOG.debug("{}", response);
+    }
+
+    @Ignore
+    public void deleteItemsFromWatchedHistory() {
+        LOG.info("deleteItemsFromWatchedHistory");
+        SyncItems syncItems = new SyncItems().movie(new SyncMovie().ids(new Ids().imdb("tt2379713")));
+        SyncResponse response = getTraktTvApi().syncService().deleteItemsFromWatchedHistory(syncItems);
+        LOG.debug("{}", response);
     }
 }

@@ -33,7 +33,7 @@ public class SyncErrors extends AbstractJsonMapping {
 
     @JsonProperty("movies")
     private List<SyncMovie> movies;
-    @JsonProperty("movies")
+    @JsonProperty("shows")
     private List<SyncShow> shows;
     @JsonProperty("seasons")
     private List<SyncSeason> seasons;

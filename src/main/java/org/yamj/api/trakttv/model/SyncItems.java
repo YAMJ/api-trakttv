@@ -24,58 +24,58 @@ package org.yamj.api.trakttv.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @JsonInclude(Include.NON_DEFAULT)
 public class SyncItems {
 
     @JsonProperty("movies")
-    private List<SyncMovie> movies = new ArrayList<>();
+    private List<SyncMovie> movies;
     @JsonProperty("shows")
-    private List<SyncShow> shows = new ArrayList<>();
+    private List<SyncShow> shows;
     @JsonProperty("episodes")
-    private List<SyncEpisode> episodes = new ArrayList<>();
+    private List<SyncEpisode> episodes;
     @JsonProperty("ids")
-    private List<Integer> ids = new ArrayList<>();
+    private List<Integer> ids;
 
     public SyncItems movie(SyncMovie movie) {
-        this.movies.add(movie);
+        this.movies = Collections.singletonList(movie);
         return this;
     }
 
     public SyncItems movies(List<SyncMovie> movies) {
-        this.movies.addAll(movies);
+        this.movies = movies;
         return this;
     }
 
-    public SyncItems shows(SyncShow show) {
-        this.shows.add(show);
+    public SyncItems show(SyncShow show) {
+        this.shows = Collections.singletonList(show);
         return this;
     }
 
     public SyncItems shows(List<SyncShow> shows) {
-        this.shows.addAll(shows);
+        this.shows = shows;
         return this;
     }
 
-    public SyncItems episodes(SyncEpisode episode) {
-        this.episodes.add(episode);
+    public SyncItems episode(SyncEpisode episode) {
+        this.episodes = Collections.singletonList(episode);
         return this;
     }
 
     public SyncItems episodes(List<SyncEpisode> episodes) {
-        this.episodes.addAll(episodes);
+        this.episodes = episodes;
         return this;
     }
 
     public SyncItems ids(int id) {
-        this.ids.add(id);
+        this.ids = Collections.singletonList(id);
         return this;
     }
 
     public SyncItems ids(List<Integer> ids) {
-        this.ids.addAll(ids);
+        this.ids = ids;
         return this;
     }
 }

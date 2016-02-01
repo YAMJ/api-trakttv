@@ -22,12 +22,9 @@
 package org.yamj.api.trakttv.service;
 
 import java.util.List;
-import org.yamj.api.trakttv.model.LastActivities;
-import org.yamj.api.trakttv.model.TrackedMovie;
-import org.yamj.api.trakttv.model.TrackedShow;
+import org.yamj.api.trakttv.model.*;
 import org.yamj.api.trakttv.model.enumeration.Extended;
-import retrofit.http.GET;
-import retrofit.http.Query;
+import retrofit.http.*;
 
 /**
  * Note that for all request an authorization is required via OAuth and access_token.
@@ -43,13 +40,11 @@ public interface SyncService {
     @GET("/sync/collection/shows")
     List<TrackedShow> getCollectionShows(@Query(value = "extended", encodeValue = false) Extended extended);
 
-    /*
     @POST("/sync/collection")
     SyncResponse addItemsToCollection(@Body SyncItems items);
 
     @POST("/sync/collection/remove")
     SyncResponse deleteItemsFromCollection(@Body SyncItems items);
-    */
     
     @GET("/sync/watched/movies")
     List<TrackedMovie> getWatchedMovies(@Query(value = "extended", encodeValue = false) Extended extended);
@@ -57,12 +52,9 @@ public interface SyncService {
     @GET("/sync/watched/shows")
     List<TrackedShow> getWatchedShows(@Query(value = "extended", encodeValue = false) Extended extended);
 
-    /*
     @POST("/sync/history")
     SyncResponse addItemsToWatchedHistory(@Body SyncItems items);
 
     @POST("/sync/history/remove")
     SyncResponse deleteItemsFromWatchedHistory(@Body SyncItems items);
-    */
-
 }
