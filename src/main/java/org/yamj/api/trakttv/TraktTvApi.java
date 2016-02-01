@@ -211,6 +211,10 @@ public class TraktTvApi {
         return getRestAdapter().create(EpisodeService.class);
     }
 
+    public SearchService searchService() {
+        return getRestAdapter().create(SearchService.class);
+    }
+
     public SyncService syncService() {
         return getRestAdapter().create(SyncService.class);
     }
