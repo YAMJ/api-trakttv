@@ -23,7 +23,7 @@ package org.yamj.api.trakttv.model;
 
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 @JsonRootName("movie")
 @JsonInclude(Include.NON_DEFAULT)
@@ -38,11 +38,11 @@ public class Person extends AbstractBaseMapping {
     @JsonProperty("biography")
     private String biography;
     @JsonProperty("birthday")
-    private DateTime birthDay;
+    private LocalDate birthDay;
     @JsonProperty("birthplace")
     private String birthPlace;
     @JsonProperty("death")
-    private DateTime deathDay;
+    private LocalDate deathDay;
     @JsonProperty("homepage")
     private String homepage;
     @JsonProperty("images")
@@ -72,11 +72,11 @@ public class Person extends AbstractBaseMapping {
         this.biography = biography;
     }
 
-    public DateTime getBirthDay() {
+    public LocalDate getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(DateTime birthDay) {
+    public void setBirthDay(LocalDate birthDay) {
         this.birthDay = birthDay;
     }
 
@@ -88,11 +88,11 @@ public class Person extends AbstractBaseMapping {
         this.birthPlace = birthPlace;
     }
 
-    public DateTime getDeathDay() {
+    public LocalDate getDeathDay() {
         return deathDay;
     }
 
-    public void setDeathDay(DateTime deathDay) {
+    public void setDeathDay(LocalDate deathDay) {
         this.deathDay = deathDay;
     }
 

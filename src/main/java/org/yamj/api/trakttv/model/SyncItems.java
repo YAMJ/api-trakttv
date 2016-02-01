@@ -28,8 +28,10 @@ import java.util.Collections;
 import java.util.List;
 
 @JsonInclude(Include.NON_DEFAULT)
-public class SyncItems {
+public class SyncItems extends AbstractJsonMapping {
 
+    private static final long serialVersionUID = -5974201391437497842L;
+    
     @JsonProperty("movies")
     private List<SyncMovie> movies;
     @JsonProperty("shows")

@@ -23,7 +23,7 @@ package org.yamj.api.trakttv.model;
 
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 @JsonRootName("episode")
 @JsonInclude(Include.NON_DEFAULT)
@@ -38,7 +38,7 @@ public class Episode extends AbstractBaseMapping {
     @JsonProperty("number_abs")
     private Integer absoluteNumber;
     @JsonProperty("first_aired")
-    private DateTime firstAired;
+    private LocalDate firstAired;
 
     public Integer getSeason() {
         return season;
@@ -64,11 +64,11 @@ public class Episode extends AbstractBaseMapping {
         this.absoluteNumber = absoluteNumber;
     }
 
-    public DateTime getFirstAired() {
+    public LocalDate getFirstAired() {
         return firstAired;
     }
 
-    public void setFirstAired(DateTime firstAired) {
+    public void setFirstAired(LocalDate firstAired) {
         this.firstAired = firstAired;
     }
 }

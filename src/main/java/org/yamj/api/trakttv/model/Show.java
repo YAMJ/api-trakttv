@@ -24,7 +24,7 @@ package org.yamj.api.trakttv.model;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.util.List;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 @JsonRootName("show")
 @JsonInclude(Include.NON_DEFAULT)
@@ -35,7 +35,7 @@ public class Show extends AbstractBaseMapping {
     @JsonProperty("year")
     private Integer year;
     @JsonProperty("first_aired")
-    private DateTime firstAired;
+    private LocalDate firstAired;
     @JsonProperty("runtime")
     private Integer runtime;
     @JsonProperty("certification")
@@ -63,11 +63,11 @@ public class Show extends AbstractBaseMapping {
         this.year = year;
     }
 
-    public DateTime getFirstAired() {
+    public LocalDate getFirstAired() {
         return firstAired;
     }
 
-    public void setFirstAired(DateTime firstAired) {
+    public void setFirstAired(LocalDate firstAired) {
         this.firstAired = firstAired;
     }
 

@@ -24,7 +24,7 @@ package org.yamj.api.trakttv.model;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.util.List;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 @JsonRootName("movie")
 @JsonInclude(Include.NON_DEFAULT)
@@ -39,7 +39,7 @@ public class Movie extends AbstractBaseMapping {
     @JsonProperty("tagline")
     private String tagline;
     @JsonProperty("released")
-    private DateTime releaseDate;
+    private LocalDate releaseDate;
     @JsonProperty("runtime")
     private Integer runtime;
     @JsonProperty("trailer")
@@ -51,7 +51,6 @@ public class Movie extends AbstractBaseMapping {
     @JsonProperty("genres")
     private List<String> genres;
 
-    
     public Integer getYear() {
         return year;
     }
@@ -76,11 +75,11 @@ public class Movie extends AbstractBaseMapping {
         this.tagline = tagline;
     }
 
-    public DateTime getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(DateTime releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
 

@@ -22,7 +22,7 @@
 package org.yamj.api.trakttv;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
+import com.fasterxml.jackson.datatype.joda.JodaMapper;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -94,7 +94,10 @@ public class TraktTvApi {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.httpClient = httpClient;
-        this.objectMapper = new ObjectMapper().registerModule(new JodaModule());
+        
+        JodaMapper jodaMapper = new JodaMapper();
+        jodaMapper.setWriteDatesAsTimestamps(false);
+        this.objectMapper = jodaMapper;
     }
 
     public TraktTvApi setAccessToken(String accessToken) {

@@ -21,6 +21,7 @@
  */
 package org.yamj.api.trakttv.service;
 
+import java.util.Date;
 import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -83,9 +84,9 @@ public class SyncServiceTest extends AbstractTests {
     }
     
     @Ignore
-    public void addItemsToCollection() {
+    public void addItemsToCollection()  throws Exception {
         LOG.info("addItemsToCollection");
-        SyncItems syncItems = new SyncItems().movie(new SyncMovie().ids(new Ids().imdb("tt2379713")));
+        SyncItems syncItems = new SyncItems().movie(new SyncMovie().ids(new Ids().imdb("tt2379713")).collectedAt(new Date()));
         SyncResponse response = getTraktTvApi().syncService().addItemsToCollection(syncItems);
         LOG.debug("{}", response);
     }
@@ -101,7 +102,7 @@ public class SyncServiceTest extends AbstractTests {
     @Ignore
     public void addItemsToWatchedHistory() {
         LOG.info("addItemsToWatchedHistory");
-        SyncItems syncItems = new SyncItems().movie(new SyncMovie().ids(new Ids().imdb("tt2379713")));
+        SyncItems syncItems = new SyncItems().movie(new SyncMovie().ids(new Ids().imdb("tt2379713")).watchedAt(new Date()));
         SyncResponse response = getTraktTvApi().syncService().addItemsToWatchedHistory(syncItems);
         LOG.debug("{}", response);
     }
