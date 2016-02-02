@@ -52,8 +52,6 @@ public class Show extends AbstractBaseMapping {
     private String language;
     @JsonProperty("genres")
     private List<String> genres;
-    @JsonProperty("images")
-    private Images images;
 
     public Integer getYear() {
         return year;
@@ -133,13 +131,5 @@ public class Show extends AbstractBaseMapping {
 
     public void setGenres(List<String> genres) {
         this.genres = genres;
-    }
-
-    public Images getImages() {
-        return images;
-    }
-
-    public void setImages(Images images) {
-        this.images = images;
     }
 }

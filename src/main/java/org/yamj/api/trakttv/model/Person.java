@@ -31,8 +31,6 @@ public class Person extends AbstractBaseMapping {
 
     private static final long serialVersionUID = -1746522762307164876L;
 
-    @JsonProperty("ids")
-    private Ids ids;
     @JsonProperty("name")
     private String name;
     @JsonProperty("biography")
@@ -45,16 +43,6 @@ public class Person extends AbstractBaseMapping {
     private LocalDate deathDay;
     @JsonProperty("homepage")
     private String homepage;
-    @JsonProperty("images")
-    private Images images;
-
-    public Ids getIds() {
-        return ids;
-    }
-
-    public void setIds(Ids ids) {
-        this.ids = ids;
-    }
 
     public String getName() {
         return name;
@@ -96,20 +84,11 @@ public class Person extends AbstractBaseMapping {
         this.deathDay = deathDay;
     }
 
-
     public String getHomepage() {
         return homepage;
     }
 
     public void setHomepage(String homepage) {
         this.homepage = homepage;
-    }
-
-    public Images getImages() {
-        return images;
-    }
-
-    public void setImages(Images images) {
-        this.images = images;
     }
 }
