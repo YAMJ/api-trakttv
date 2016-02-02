@@ -84,7 +84,7 @@ public class SyncServiceTest extends AbstractTests {
     }
     
     @Ignore
-    public void addItemsToCollection()  throws Exception {
+    public void addItemsToCollection() {
         LOG.info("addItemsToCollection");
         SyncItems syncItems = new SyncItems().movie(new SyncMovie().ids(new Ids().imdb("tt2379713")).collectedAt(new Date()));
         SyncResponse response = getTraktTvApi().syncService().addItemsToCollection(syncItems);
