@@ -42,6 +42,10 @@ public class SyncShow extends AbstractJsonMapping {
     @JsonProperty("watched_at")
     private DateTime watchedAt;
 
+    public Ids ids() {
+        return ids;
+    }
+    
     public SyncShow ids(Ids ids) {
         this.ids = ids;
         return this;
