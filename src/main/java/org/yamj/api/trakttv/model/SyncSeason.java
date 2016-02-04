@@ -43,11 +43,19 @@ public class SyncSeason extends AbstractJsonMapping {
     @JsonProperty("watched_at")
     private DateTime watchedAt;
 
-    public SyncSeason number(int number) {
+    public Integer number() {
+        return number;
+    }
+    
+    public SyncSeason number(Integer number) {
         this.number = number;
         return this;
     }
 
+    public List<SyncEpisode> episodes() {
+        return episodes;
+    }
+    
     public SyncSeason episode(SyncEpisode episode) {
         this.episodes.add(episode);
         return this;

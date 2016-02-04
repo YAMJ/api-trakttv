@@ -22,18 +22,30 @@ public class SyncEpisode extends AbstractJsonMapping {
     @JsonProperty("watched_at")
     private DateTime watchedAt;
 
-    public SyncEpisode number(int number) {
+    public Integer number() {
+        return number;
+    }
+    
+    public SyncEpisode number(Integer number) {
         this.number = number;
         return this;
     }
 
-    public SyncEpisode season(int season) {
+    public Integer season() {
+        return season;
+    }
+    
+    public SyncEpisode season(Integer season) {
         this.season = season;
         return this;
     }
 
-    public SyncEpisode ids(Ids id) {
-        this.ids = id;
+    public Ids ids() {
+        return ids;
+    }
+    
+    public SyncEpisode ids(Ids ids) {
+        this.ids = ids;
         return this;
     }
 

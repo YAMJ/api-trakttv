@@ -39,6 +39,10 @@ public class SyncMovie extends AbstractJsonMapping {
     @JsonProperty("watched_at")
     private DateTime watchedAt;
 
+    public Ids ids() {
+        return ids;
+    }
+    
     public SyncMovie ids(Ids ids) {
         this.ids = ids;
         return this;

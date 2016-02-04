@@ -47,6 +47,10 @@ public class SyncShow extends AbstractJsonMapping {
         return this;
     }
 
+    public List<SyncSeason> seasons() {
+        return seasons;
+    }
+
     public SyncShow season(SyncSeason season) {
         this.seasons.add(season);
         return this;
