@@ -3,6 +3,7 @@ package org.yamj.api.trakttv.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Date;
 import org.joda.time.DateTime;
 
 @JsonInclude(Include.NON_DEFAULT)
@@ -36,9 +37,25 @@ public class SyncEpisode extends AbstractJsonMapping {
         return this;
     }
 
+    public SyncEpisode collectedAt(Date collectedAt) {
+        if (collectedAt == null) {
+            this.collectedAt = null;
+            return this;
+        }
+        return this.collectedAt(new DateTime(collectedAt.getTime()));
+    }
+
     public SyncEpisode collectedAt(DateTime collectedAt) {
         this.collectedAt = collectedAt;
         return this;
+    }
+
+    public SyncEpisode watchedAt(Date watchedAt) {
+        if (watchedAt == null) {
+            this.watchedAt = null;
+            return this;
+        }
+        return this.watchedAt(new DateTime(watchedAt.getTime()));
     }
 
     public SyncEpisode watchedAt(DateTime watchedAt) {

@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.joda.time.DateTime;
 
@@ -57,9 +58,25 @@ public class SyncSeason extends AbstractJsonMapping {
         return this;
     }
 
+    public SyncSeason collectedAt(Date collectedAt) {
+        if (collectedAt == null) {
+            this.collectedAt = null;
+            return this;
+        }
+        return this.collectedAt(new DateTime(collectedAt.getTime()));
+    }
+
     public SyncSeason collectedAt(DateTime collectedAt) {
         this.collectedAt = collectedAt;
         return this;
+    }
+
+    public SyncSeason watchedAt(Date watchedAt) {
+        if (watchedAt == null) {
+            this.watchedAt = null;
+            return this;
+        }
+        return this.watchedAt(new DateTime(watchedAt.getTime()));
     }
 
     public SyncSeason watchedAt(DateTime watchedAt) {
