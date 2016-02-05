@@ -35,6 +35,10 @@ public class SyncShow extends AbstractJsonMapping {
 
     @JsonProperty("ids")
     private Ids ids;
+    @JsonProperty("title")
+    private String title;
+    @JsonProperty("year")
+    private Integer year;
     @JsonProperty("seasons")
     private List<SyncSeason> seasons = new ArrayList<>();
     @JsonProperty("collected_at")
@@ -48,6 +52,24 @@ public class SyncShow extends AbstractJsonMapping {
     
     public SyncShow ids(Ids ids) {
         this.ids = ids;
+        return this;
+    }
+
+    public String title() {
+        return title;
+    }
+    
+    public SyncShow title(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public Integer year() {
+        return year;
+    }
+    
+    public SyncShow year(Integer year) {
+        this.year = year;
         return this;
     }
 

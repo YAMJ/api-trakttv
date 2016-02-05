@@ -34,6 +34,10 @@ public class SyncMovie extends AbstractJsonMapping {
     
     @JsonProperty("ids")
     private Ids ids;
+    @JsonProperty("title")
+    private String title;
+    @JsonProperty("year")
+    private Integer year;
     @JsonProperty("collected_at")
     private DateTime collectedAt;
     @JsonProperty("watched_at")
@@ -45,6 +49,24 @@ public class SyncMovie extends AbstractJsonMapping {
     
     public SyncMovie ids(Ids ids) {
         this.ids = ids;
+        return this;
+    }
+
+    public String title() {
+        return title;
+    }
+    
+    public SyncMovie title(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public Integer year() {
+        return year;
+    }
+    
+    public SyncMovie year(Integer year) {
+        this.year = year;
         return this;
     }
 
