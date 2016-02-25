@@ -54,7 +54,7 @@ import retrofit.converter.JacksonConverter;
 public class TraktTvApi {
 
     private static final Logger LOG = LoggerFactory.getLogger(TraktTvApi.class);
-    
+
     private static final String TRAKT_API_URL = "https://api-v2launch.trakt.tv";
     private static final String TRAKT_TOKEN_URL = TRAKT_API_URL + "/oauth/token";
     private static final String HEADER_AUTHORIZATION = "Authorization";
@@ -67,22 +67,22 @@ public class TraktTvApi {
     private final String clientSecret;
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
-    private final Charset UTF8 = Charset.forName("UTF-8");
+    private static final Charset UTF8 = Charset.forName("UTF-8");
 
     private String accessToken;
     private boolean isDebug;
     private RestAdapter restAdapter;
-    
+
     /**
      * Create the API
-     * 
+     *
      * @param clientId the client ID
      * @param clientSecret the client secret
      */
     public TraktTvApi(final String clientId, final String clientSecret) {
         this(clientId, clientSecret, new SimpleHttpClientBuilder().build());
     }
-    
+
     /**
      * Create the API
      *
@@ -94,7 +94,7 @@ public class TraktTvApi {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.httpClient = httpClient;
-        
+
         JodaMapper jodaMapper = new JodaMapper();
         jodaMapper.setWriteDatesAsTimestamps(false);
         this.objectMapper = jodaMapper;
@@ -105,7 +105,7 @@ public class TraktTvApi {
         restAdapter = null;
         return this;
     }
-    
+
     public TraktTvApi setIsDebug(boolean isDebug) {
         this.isDebug = isDebug;
 
@@ -115,25 +115,25 @@ public class TraktTvApi {
 
         return this;
     }
-    
+
     protected RestAdapter getRestAdapter() {
         if (restAdapter == null) {
             RestAdapter.Builder builder = new RestAdapter.Builder()
-                .setEndpoint(TRAKT_API_URL)
-                .setClient(new ApacheClient(httpClient))
-                .setConverter(new JacksonConverter(objectMapper))
-                .setErrorHandler(new TraktTvErrorHandler())
-                .setRequestInterceptor(new RequestInterceptor() {
-                    @Override
-                    public void intercept(RequestFacade request) {
-                        if (accessToken != null && accessToken.length() != 0) {
-                            request.addHeader(HEADER_AUTHORIZATION, "Bearer" + " " + accessToken);
+                    .setEndpoint(TRAKT_API_URL)
+                    .setClient(new ApacheClient(httpClient))
+                    .setConverter(new JacksonConverter(objectMapper))
+                    .setErrorHandler(new TraktTvErrorHandler())
+                    .setRequestInterceptor(new RequestInterceptor() {
+                        @Override
+                        public void intercept(RequestFacade request) {
+                            if (accessToken != null && accessToken.length() != 0) {
+                                request.addHeader(HEADER_AUTHORIZATION, "Bearer" + " " + accessToken);
+                            }
+                            request.addHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType());
+                            request.addHeader(HEADER_TRAKT_API_KEY, clientId);
+                            request.addHeader(HEADER_TRAKT_API_VERSION, HEADER_TRAKT_API_VERSION_2);
                         }
-                        request.addHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType());
-                        request.addHeader(HEADER_TRAKT_API_KEY, clientId);
-                        request.addHeader(HEADER_TRAKT_API_VERSION, HEADER_TRAKT_API_VERSION_2);
-                    }
-                });
+                    });
 
             if (isDebug) {
                 builder.setLogLevel(RestAdapter.LogLevel.FULL);
@@ -144,9 +144,14 @@ public class TraktTvApi {
 
         return restAdapter;
     }
-    
-    // AUTHORIZATION
-    
+
+    /**
+     * Authorization
+     *
+     * @param pin
+     * @return
+     * @throws TraktTvException
+     */
     public TokenResponse requestAccessTokenByPin(final String pin) throws TraktTvException {
         StringEntity body;
         try {
@@ -158,46 +163,45 @@ public class TraktTvApi {
             request.setRedirectUri("urn:ietf:wg:oauth:2.0:oob");
             body = new StringEntity(objectMapper.writeValueAsString(request), UTF8);
         } catch (Exception e) {
-            throw new TraktTvException(ApiExceptionType.MAPPING_FAILED, "Failed to build request body");
+            throw new TraktTvException(ApiExceptionType.MAPPING_FAILED, "Failed to build request body", e);
         }
-            
+
         LOG.debug("Request authorization via PIN");
-        
+
         try {
             HttpPost httpPost = new HttpPost();
             httpPost.setURI(new URI(TRAKT_TOKEN_URL));
             httpPost.addHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType());
             httpPost.setEntity(body);
-            
+
             DigestedResponse digestedResponse = DigestedResponseReader.postContent(httpClient, httpPost, UTF8);
-            switch(digestedResponse.getStatusCode()) {
-            case 200:
-            case 201:
-                return objectMapper.readValue(digestedResponse.getContent(), TokenResponse.class);
-            case 400:
-                throw new TraktTvException(ApiExceptionType.MAPPING_FAILED, "Request couldn't be parsed", 400, EMPTY_URL);
-            case 401:
-                throw new TraktTvException(ApiExceptionType.AUTH_FAILURE, "OAuth must be provided", 401, EMPTY_URL);
-            case 403:
-                throw new TraktTvException(ApiExceptionType.AUTH_FAILURE, "Invalid API key or unapproved app", 403, EMPTY_URL);
-            case 422:
-                throw new TraktTvException(ApiExceptionType.MAPPING_FAILED, "Validation errors", 422, EMPTY_URL);
-            case 500:
-            case 503:
-            case 520:
-            case 521:
-            case 522:
-                throw new TraktTvException(ApiExceptionType.HTTP_503_ERROR, "Internal server error", digestedResponse.getStatusCode(), EMPTY_URL);
-            default:
-                throw new TraktTvException(ApiExceptionType.UNKNOWN_CAUSE, "Unknown error", digestedResponse.getStatusCode(), EMPTY_URL);
+            switch (digestedResponse.getStatusCode()) {
+                case 200:
+                case 201:
+                    return objectMapper.readValue(digestedResponse.getContent(), TokenResponse.class);
+                case 400:
+                    throw new TraktTvException(ApiExceptionType.MAPPING_FAILED, "Request couldn't be parsed", 400, EMPTY_URL);
+                case 401:
+                    throw new TraktTvException(ApiExceptionType.AUTH_FAILURE, "OAuth must be provided", 401, EMPTY_URL);
+                case 403:
+                    throw new TraktTvException(ApiExceptionType.AUTH_FAILURE, "Invalid API key or unapproved app", 403, EMPTY_URL);
+                case 422:
+                    throw new TraktTvException(ApiExceptionType.MAPPING_FAILED, "Validation errors", 422, EMPTY_URL);
+                case 500:
+                case 503:
+                case 520:
+                case 521:
+                case 522:
+                    throw new TraktTvException(ApiExceptionType.HTTP_503_ERROR, "Internal server error", digestedResponse.getStatusCode(), EMPTY_URL);
+                default:
+                    throw new TraktTvException(ApiExceptionType.UNKNOWN_CAUSE, "Unknown error", digestedResponse.getStatusCode(), EMPTY_URL);
             }
         } catch (URISyntaxException | IOException e) {
             throw new TraktTvException(ApiExceptionType.CONNECTION_ERROR, "Request failed", 503, EMPTY_URL, e);
         }
     }
-    
+
     // SERVICES
-    
     public MovieService movieService() {
         return getRestAdapter().create(MovieService.class);
     }

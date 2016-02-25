@@ -36,11 +36,12 @@ import org.yamj.api.trakttv.model.enumeration.Extended;
 public class SeasonServiceTest extends AbstractTests {
 
     private static final Logger LOG = LoggerFactory.getLogger(SeasonServiceTest.class);
+    private static final String ID_THEFLASH = "the-flash-2014";
 
     @Test
     public void testGetSeasons() {
         LOG.info("testGetSeasons");
-        final List<Season> seasons =  getTraktTvApi().seasonService().getSeasons("the-flash-2014");
+        final List<Season> seasons = getTraktTvApi().seasonService().getSeasons(ID_THEFLASH);
         Assert.assertTrue(seasons.size() > 1);
         LOG.debug("{}", seasons);
     }
@@ -48,7 +49,7 @@ public class SeasonServiceTest extends AbstractTests {
     @Test
     public void testGetRatings() {
         LOG.info("testGetRatings");
-        final Ratings ratings =  getTraktTvApi().seasonService().getRatings("the-flash-2014", 1);
+        final Ratings ratings = getTraktTvApi().seasonService().getRatings(ID_THEFLASH, 1);
         Assert.assertTrue(ratings.getRating() > 7.0d);
         LOG.debug("{}", ratings);
     }
@@ -56,7 +57,7 @@ public class SeasonServiceTest extends AbstractTests {
     @Test
     public void testGetEpisodes() {
         LOG.info("testGetEpisodes");
-        final List<Episode> episodes =  getTraktTvApi().seasonService().getEpisodes("the-flash-2014", 1, Extended.FULLIMAGES);
+        final List<Episode> episodes = getTraktTvApi().seasonService().getEpisodes(ID_THEFLASH, 1, Extended.FULLIMAGES);
         Assert.assertEquals(23, episodes.size());
         LOG.debug("{}", episodes);
     }

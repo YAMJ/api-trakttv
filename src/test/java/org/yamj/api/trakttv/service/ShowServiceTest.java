@@ -22,7 +22,9 @@
 package org.yamj.api.trakttv.service;
 
 import java.util.List;
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,52 +35,53 @@ import org.yamj.api.trakttv.model.enumeration.Extended;
 public class ShowServiceTest extends AbstractTests {
 
     private static final Logger LOG = LoggerFactory.getLogger(ShowServiceTest.class);
+    private static final String ID_THEFLASH = "the-flash-2014";
 
     @Test
     public void testGetShow() {
         LOG.info("testGetShow");
-        final Show show = getTraktTvApi().showService().getShow("the-flash-2014", Extended.FULLIMAGES);
-        Assert.assertEquals(Integer.valueOf(279121), show.getIds().tvdb());
+        final Show show = getTraktTvApi().showService().getShow(ID_THEFLASH, Extended.FULLIMAGES);
+        assertEquals(Integer.valueOf(279121), show.getIds().tvdb());
         LOG.debug("{}", show);
     }
 
     @Test
     public void testGetAliases() {
         LOG.info("testGetAliases");
-        final List<Alias> aliases = getTraktTvApi().showService().getAliases("the-flash-2014");
-        Assert.assertTrue(aliases.size() > 5);
+        final List<Alias> aliases = getTraktTvApi().showService().getAliases(ID_THEFLASH);
+        assertTrue(aliases.size() > 5);
         LOG.debug("{}", aliases);
     }
 
     @Test
     public void testGetTranslations() {
         LOG.info("testGetTranslations");
-        final List<Translation>  translations = getTraktTvApi().showService().getTranslations("the-flash-2014");
-        Assert.assertTrue(translations.size() > 2);
+        final List<Translation> translations = getTraktTvApi().showService().getTranslations(ID_THEFLASH);
+        assertTrue(translations.size() > 2);
         LOG.debug("{}", translations);
     }
 
     @Test
     public void testGetTranslation() {
         LOG.info("testGetTranslation");
-        final List<Translation>  translations = getTraktTvApi().showService().getTranslation("the-flash-2014", "de");
-        Assert.assertTrue(translations.size() > 0);
+        final List<Translation> translations = getTraktTvApi().showService().getTranslation(ID_THEFLASH, "de");
+        assertFalse(translations.isEmpty());
         LOG.debug("{}", translations);
     }
 
     @Test
     public void testGetRatings() {
         LOG.info("testGetRatings");
-        final Ratings ratings =  getTraktTvApi().showService().getRatings("the-flash-2014");
-        Assert.assertTrue(ratings.getRating() > 7.0d);
+        final Ratings ratings = getTraktTvApi().showService().getRatings(ID_THEFLASH);
+        assertTrue(ratings.getRating() > 7.0d);
         LOG.debug("{}", ratings);
     }
 
     @Test
     public void testGetCredits() {
         LOG.info("testGetCredits");
-        final Credits credits =  getTraktTvApi().showService().getCredits("the-flash-2014");
-        Assert.assertTrue(credits.getCast().size() > 5);
+        final Credits credits = getTraktTvApi().showService().getCredits(ID_THEFLASH);
+        assertTrue(credits.getCast().size() > 5);
         LOG.debug("{}", credits);
     }
 }

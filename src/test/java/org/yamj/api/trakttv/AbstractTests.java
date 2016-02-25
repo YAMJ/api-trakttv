@@ -31,37 +31,40 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractTests {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractTests.class);
-    private static final String PROP_FIlENAME = "testing.properties";
+    private static final String PROP_FILENAME = "testing.properties";
     private final Properties props = new Properties();
     private TraktTvApi traktTvApi;
-    
+    private static final String ACCESS_TOKEN = "Access_Token";
+    private static final String CLIENT_SECRET = "Client_Secret";
+    private static final String CLIENT_ID = "Client_ID";
+
     protected TraktTvApi getTraktTvApi() {
         if (traktTvApi != null) {
             return traktTvApi;
         }
 
         TestLogger.configure();
-    
+
         if (props.isEmpty()) {
-            File f = new File(PROP_FIlENAME);
+            File f = new File(PROP_FILENAME);
             if (f.exists()) {
-                LOG.info("Loading properties from '{}'", PROP_FIlENAME);
+                LOG.info("Loading properties from '{}'", PROP_FILENAME);
                 TestLogger.loadProperties(props, f);
             } else {
-                LOG.info("Property file '{}' not found, creating dummy file.", PROP_FIlENAME);
+                LOG.info("Property file '{}' not found, creating dummy file.", PROP_FILENAME);
 
-                props.setProperty("Client_ID", "INSERT_YOUR_CLIENT_ID_HERE");
-                props.setProperty("Client_Secret", "INSERT_YOUR_CLIENT_SECRET_HERE");
-                props.setProperty("Access_Token", "INSERT_VALID_ACCESS_TOKEN_HERE");
+                props.setProperty(CLIENT_ID, "INSERT_YOUR_CLIENT_ID_HERE");
+                props.setProperty(CLIENT_SECRET, "INSERT_YOUR_CLIENT_SECRET_HERE");
+                props.setProperty(ACCESS_TOKEN, "INSERT_VALID_ACCESS_TOKEN_HERE");
 
                 TestLogger.saveProperties(props, f, "Properties file for tests");
-                Assert.fail("Failed to get key information from properties file '" + PROP_FIlENAME + "'");
+                Assert.fail("Failed to get key information from properties file '" + PROP_FILENAME + "'");
             }
         }
 
-        traktTvApi = new TraktTvApi(props.getProperty("Client_ID"), props.getProperty("Client_Secret"));
-        if (StringUtils.isNotBlank(props.getProperty("Access_Token"))) {
-            traktTvApi.setAccessToken(props.getProperty("Access_Token"));
+        traktTvApi = new TraktTvApi(props.getProperty(CLIENT_ID), props.getProperty(CLIENT_SECRET));
+        if (StringUtils.isNotBlank(props.getProperty(ACCESS_TOKEN))) {
+            traktTvApi.setAccessToken(props.getProperty(ACCESS_TOKEN));
         }
         return traktTvApi;
     }

@@ -24,7 +24,9 @@ package org.yamj.api.trakttv.service;
 import org.yamj.api.trakttv.AbstractTests;
 
 import java.util.List;
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,61 +36,64 @@ import org.yamj.api.trakttv.model.enumeration.Extended;
 public class MovieServiceTest extends AbstractTests {
 
     private static final Logger LOG = LoggerFactory.getLogger(MovieServiceTest.class);
+    private static final String ID_TRANSFORMERS = "transformers-2007";
+    private static final String ID_AVATAR = "avatar-2009";
+    private static final String LANG_DE = "DE";
 
     @Test
     public void testGetMovie() {
         LOG.info("testGetMovie");
-        final Movie movie = getTraktTvApi().movieService().getMovie("transformers-2007", Extended.FULLIMAGES);
-        Assert.assertEquals("tt0418279", movie.getIds().imdb());
+        final Movie movie = getTraktTvApi().movieService().getMovie(ID_TRANSFORMERS, Extended.FULLIMAGES);
+        assertEquals("tt0418279", movie.getIds().imdb());
         LOG.debug("{}", movie);
     }
 
     @Test
     public void testGetAliases() {
         LOG.info("testGetAliases");
-        final List<Alias> aliases = getTraktTvApi().movieService().getAliases("avatar-2009");
-        Assert.assertTrue(aliases.size() > 5);
+        final List<Alias> aliases = getTraktTvApi().movieService().getAliases(ID_AVATAR);
+        assertTrue(aliases.size() > 5);
         LOG.debug("{}", aliases);
     }
 
     @Test
     public void testGetTranslations() {
         LOG.info("testGetTranslations");
-        final List<Translation>  translations = getTraktTvApi().movieService().getTranslations("transformers-2007");
-        Assert.assertTrue(translations.size() > 2);
+        final List<Translation> translations = getTraktTvApi().movieService().getTranslations(ID_TRANSFORMERS);
+        assertTrue(translations.size() > 2);
         LOG.debug("{}", translations);
     }
 
     @Test
     public void testGetTranslation() {
         LOG.info("testGetTranslation");
-        final List<Translation>  translations = getTraktTvApi().movieService().getTranslation("transformers-2007", "de");
-        Assert.assertTrue(translations.size() > 0);
+        final List<Translation> translations = getTraktTvApi().movieService().getTranslation(ID_TRANSFORMERS, LANG_DE);
+        assertFalse(translations.isEmpty());
         LOG.debug("{}", translations);
     }
 
     @Test
     public void testGetReleases() {
         LOG.info("testGetReleases");
-        final List<Release> releases = getTraktTvApi().movieService().getReleases("avatar-2009", "DE");
-        Assert.assertEquals(1, releases.size());
+        final List<Release> releases = getTraktTvApi().movieService().getReleases(ID_AVATAR, LANG_DE);
+        assertEquals(1, releases.size());
         LOG.debug("{}", releases);
     }
 
     @Test
     public void testGetRatings() {
         LOG.info("testGetRatings");
-        final Ratings ratings =  getTraktTvApi().movieService().getRatings("transformers-2007");
-        Assert.assertTrue(ratings.getRating() > 7.0d);
+        final Ratings ratings = getTraktTvApi().movieService().getRatings(ID_TRANSFORMERS);
+        assertTrue(ratings.getRating() > 7.0d);
         LOG.debug("{}", ratings);
     }
 
     @Test
     public void testGetCredits() {
         LOG.info("testGetCredits");
-        final Credits credits =  getTraktTvApi().movieService().getCredits("transformers-2007");
-        Assert.assertTrue(credits.getCast().size() > 10);
-        Assert.assertTrue(credits.getCrew().getDirecting().size() > 0);
+        final Credits credits = getTraktTvApi().movieService().getCredits(ID_TRANSFORMERS);
+        assertTrue(credits.getCast().size() > 10);
+        assertTrue(credits.getCrew().getDirecting().size() > 0);
         LOG.debug("{}", credits);
     }
 }

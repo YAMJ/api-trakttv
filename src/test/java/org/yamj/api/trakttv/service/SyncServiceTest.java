@@ -34,12 +34,13 @@ import org.yamj.api.trakttv.model.enumeration.Extended;
 public class SyncServiceTest extends AbstractTests {
 
     private static final Logger LOG = LoggerFactory.getLogger(SyncServiceTest.class);
+    private static final String IMDB_ID = "tt2379713";
 
     @Test
     public void empty() {
         // just an empty test to prevent failing build due missing tests
     }
-    
+
     @Ignore
     public void testLastActivities() {
         LOG.info("testLastActivities");
@@ -82,11 +83,11 @@ public class SyncServiceTest extends AbstractTests {
             LOG.debug("{}", tracked);
         }
     }
-    
+
     @Ignore
     public void addItemsToCollection() {
         LOG.info("addItemsToCollection");
-        SyncItems syncItems = new SyncItems().movie(new SyncMovie().ids(new Ids().imdb("tt2379713")).collectedAt(new Date()));
+        SyncItems syncItems = new SyncItems().movie(new SyncMovie().ids(new Ids().imdb(IMDB_ID)).collectedAt(new Date()));
         SyncResponse response = getTraktTvApi().syncService().addItemsToCollection(syncItems);
         LOG.debug("{}", response);
     }
@@ -94,7 +95,7 @@ public class SyncServiceTest extends AbstractTests {
     @Ignore
     public void deleteItemsFromCollection() {
         LOG.info("deleteItemsFromCollection");
-        SyncItems syncItems = new SyncItems().movie(new SyncMovie().ids(new Ids().imdb("tt2379713")));
+        SyncItems syncItems = new SyncItems().movie(new SyncMovie().ids(new Ids().imdb(IMDB_ID)));
         SyncResponse response = getTraktTvApi().syncService().deleteItemsFromCollection(syncItems);
         LOG.debug("{}", response);
     }
@@ -102,7 +103,7 @@ public class SyncServiceTest extends AbstractTests {
     @Ignore
     public void addItemsToWatchedHistory() {
         LOG.info("addItemsToWatchedHistory");
-        SyncItems syncItems = new SyncItems().movie(new SyncMovie().ids(new Ids().imdb("tt2379713")).watchedAt(new Date()));
+        SyncItems syncItems = new SyncItems().movie(new SyncMovie().ids(new Ids().imdb(IMDB_ID)).watchedAt(new Date()));
         SyncResponse response = getTraktTvApi().syncService().addItemsToWatchedHistory(syncItems);
         LOG.debug("{}", response);
     }
@@ -110,7 +111,7 @@ public class SyncServiceTest extends AbstractTests {
     @Ignore
     public void deleteItemsFromWatchedHistory() {
         LOG.info("deleteItemsFromWatchedHistory");
-        SyncItems syncItems = new SyncItems().movie(new SyncMovie().ids(new Ids().imdb("tt2379713")));
+        SyncItems syncItems = new SyncItems().movie(new SyncMovie().ids(new Ids().imdb(IMDB_ID)));
         SyncResponse response = getTraktTvApi().syncService().deleteItemsFromWatchedHistory(syncItems);
         LOG.debug("{}", response);
     }
