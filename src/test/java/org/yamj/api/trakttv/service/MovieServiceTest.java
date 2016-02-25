@@ -27,6 +27,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +40,11 @@ public class MovieServiceTest extends AbstractTests {
     private static final String ID_TRANSFORMERS = "transformers-2007";
     private static final String ID_AVATAR = "avatar-2009";
     private static final String LANG_DE = "DE";
+
+    @BeforeClass
+    public static void setUpClass() {
+        doConfiguration();
+    }
 
     @Test
     public void testGetMovie() {

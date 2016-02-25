@@ -23,6 +23,7 @@ package org.yamj.api.trakttv.service;
 
 import java.util.List;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,11 @@ import org.yamj.api.trakttv.model.enumeration.IdType;
 public class SearchServiceTest extends AbstractTests {
 
     private static final Logger LOG = LoggerFactory.getLogger(SearchServiceTest.class);
+
+    @BeforeClass
+    public static void setUpClass() {
+        doConfiguration();
+    }
 
     @Test
     public void searchMovieByTraktId() {

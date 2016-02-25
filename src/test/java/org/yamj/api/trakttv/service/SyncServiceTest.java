@@ -23,6 +23,7 @@ package org.yamj.api.trakttv.service;
 
 import java.util.Date;
 import java.util.List;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -35,6 +36,11 @@ public class SyncServiceTest extends AbstractTests {
 
     private static final Logger LOG = LoggerFactory.getLogger(SyncServiceTest.class);
     private static final String IMDB_ID = "tt2379713";
+
+    @BeforeClass
+    public static void setUpClass() {
+        doConfiguration();
+    }
 
     @Test
     public void empty() {

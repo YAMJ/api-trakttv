@@ -24,6 +24,7 @@ package org.yamj.api.trakttv.service;
 import org.yamj.api.trakttv.AbstractTests;
 
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,11 @@ import org.yamj.api.trakttv.model.enumeration.Extended;
 public class EpisodeServiceTest extends AbstractTests {
 
     private static final Logger LOG = LoggerFactory.getLogger(EpisodeServiceTest.class);
+
+    @BeforeClass
+    public static void setUpClass() {
+        doConfiguration();
+    }
 
     @Test
     public void testGetEpisode() {
@@ -46,7 +52,7 @@ public class EpisodeServiceTest extends AbstractTests {
     @Test
     public void testGetRatings() {
         LOG.info("testGetRatings");
-        final Ratings ratings =  getTraktTvApi().episodeService().getRatings("the-flash-2014", 1, 5);
+        final Ratings ratings = getTraktTvApi().episodeService().getRatings("the-flash-2014", 1, 5);
         Assert.assertTrue(ratings.getRating() > 7.0d);
         LOG.debug("{}", ratings);
     }

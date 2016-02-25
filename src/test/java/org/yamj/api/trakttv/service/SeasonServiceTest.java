@@ -25,6 +25,7 @@ import org.yamj.api.trakttv.AbstractTests;
 
 import java.util.List;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +38,11 @@ public class SeasonServiceTest extends AbstractTests {
 
     private static final Logger LOG = LoggerFactory.getLogger(SeasonServiceTest.class);
     private static final String ID_THEFLASH = "the-flash-2014";
+
+    @BeforeClass
+    public static void setUpClass() {
+        doConfiguration();
+    }
 
     @Test
     public void testGetSeasons() {

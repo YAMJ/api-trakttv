@@ -31,8 +31,11 @@ public class TraktTvErrorHandler implements ErrorHandler {
     @Override
     public Throwable handleError(RetrofitError cause) {
         Response r = cause.getResponse();
-        if (r != null) {
-            switch (r.getStatus()) {
+        if (r == null) {
+            return new TraktTvException(ApiExceptionType.UNKNOWN_CAUSE, cause.getMessage());
+        }
+
+        switch (r.getStatus()) {
             case 401:
                 return new TraktTvException(ApiExceptionType.AUTH_FAILURE, "No valid OAuth token provided", r.getStatus(), r.getUrl());
             case 403:
@@ -43,10 +46,6 @@ public class TraktTvErrorHandler implements ErrorHandler {
                 return new TraktTvException(ApiExceptionType.HTTP_503_ERROR, cause.getMessage(), r.getStatus(), r.getUrl(), cause);
             default:
                 return new TraktTvException(ApiExceptionType.UNKNOWN_CAUSE, cause.getMessage(), r.getStatus(), r.getUrl(), cause);
-            }
         }
-        
-        return new TraktTvException(ApiExceptionType.UNKNOWN_CAUSE, cause.getMessage());
     }
-
 }
