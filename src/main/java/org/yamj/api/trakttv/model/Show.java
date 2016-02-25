@@ -37,6 +37,12 @@ public class Show extends BaseMedia {
     private String network;
     @JsonProperty("country")
     private String country;
+    @JsonProperty("status")
+    private String status;
+    @JsonProperty("aired_episodes")
+    private int airedEpisodes;
+    @JsonProperty("airs")
+    private Airs airs;
 
     public DateTime getFirstAired() {
         return firstAired;
@@ -60,5 +66,29 @@ public class Show extends BaseMedia {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getAiredEpisodes() {
+        return airedEpisodes;
+    }
+
+    public void setAiredEpisodes(int airedEpisodes) {
+        this.airedEpisodes = airedEpisodes;
+    }
+
+    public Airs getAirs() {
+        return airs;
+    }
+
+    public void setAirs(Airs airs) {
+        this.airs = airs;
     }
 }
