@@ -23,49 +23,18 @@ package org.yamj.api.trakttv.model;
 
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import java.util.List;
 import org.joda.time.LocalDate;
 
 @JsonRootName("movie")
 @JsonInclude(Include.NON_DEFAULT)
-public class Movie extends AbstractBaseMapping {
+public class Movie extends BaseMedia {
 
     private static final long serialVersionUID = 7935857387018303905L;
 
-    @JsonProperty("year")
-    private Integer year;
-    @JsonProperty("certification")
-    private String certification;
     @JsonProperty("tagline")
     private String tagline;
     @JsonProperty("released")
     private LocalDate releaseDate;
-    @JsonProperty("runtime")
-    private Integer runtime;
-    @JsonProperty("trailer")
-    private String trailer;
-    @JsonProperty("homepage")
-    private String homepage;
-    @JsonProperty("language")
-    private String language;
-    @JsonProperty("genres")
-    private List<String> genres;
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-
-    public String getCertification() {
-        return certification;
-    }
-
-    public void setCertification(String certification) {
-        this.certification = certification;
-    }
 
     public String getTagline() {
         return tagline;
@@ -81,45 +50,5 @@ public class Movie extends AbstractBaseMapping {
 
     public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
-    }
-
-    public Integer getRuntime() {
-        return runtime;
-    }
-
-    public void setRuntime(Integer runtime) {
-        this.runtime = runtime;
-    }
-
-    public String getTrailer() {
-        return trailer;
-    }
-
-    public void setTrailer(String trailer) {
-        this.trailer = trailer;
-    }
-
-    public String getHomepage() {
-        return homepage;
-    }
-
-    public void setHomepage(String homepage) {
-        this.homepage = homepage;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public List<String> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(List<String> genres) {
-        this.genres = genres;
     }
 }

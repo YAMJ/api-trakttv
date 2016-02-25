@@ -23,43 +23,20 @@ package org.yamj.api.trakttv.model;
 
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import java.util.List;
 import org.joda.time.DateTime;
 
 @JsonRootName("show")
 @JsonInclude(Include.NON_DEFAULT)
-public class Show extends AbstractBaseMapping {
+public class Show extends BaseMedia {
 
     private static final long serialVersionUID = -7485595580940161658L;
 
-    @JsonProperty("year")
-    private Integer year;
     @JsonProperty("first_aired")
     private DateTime firstAired;
-    @JsonProperty("runtime")
-    private Integer runtime;
-    @JsonProperty("certification")
-    private String certification;
     @JsonProperty("network")
     private String network;
     @JsonProperty("country")
     private String country;
-    @JsonProperty("trailer")
-    private String trailer;
-    @JsonProperty("homepage")
-    private String homepage;
-    @JsonProperty("language")
-    private String language;
-    @JsonProperty("genres")
-    private List<String> genres;
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
 
     public DateTime getFirstAired() {
         return firstAired;
@@ -67,22 +44,6 @@ public class Show extends AbstractBaseMapping {
 
     public void setFirstAired(DateTime firstAired) {
         this.firstAired = firstAired;
-    }
-
-    public Integer getRuntime() {
-        return runtime;
-    }
-
-    public void setRuntime(Integer runtime) {
-        this.runtime = runtime;
-    }
-
-    public String getCertification() {
-        return certification;
-    }
-
-    public void setCertification(String certification) {
-        this.certification = certification;
     }
 
     public String getNetwork() {
@@ -99,37 +60,5 @@ public class Show extends AbstractBaseMapping {
 
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    public String getTrailer() {
-        return trailer;
-    }
-
-    public void setTrailer(String trailer) {
-        this.trailer = trailer;
-    }
-
-    public String getHomepage() {
-        return homepage;
-    }
-
-    public void setHomepage(String homepage) {
-        this.homepage = homepage;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public List<String> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(List<String> genres) {
-        this.genres = genres;
     }
 }
