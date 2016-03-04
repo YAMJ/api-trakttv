@@ -23,10 +23,8 @@ package org.yamj.api.trakttv.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class TokenRequest {
+public abstract class AbstractRequest {
 
-    @JsonProperty("code")
-    private String code;
     @JsonProperty("client_id")
     private String clientId;
     @JsonProperty("client_secret")
@@ -35,10 +33,6 @@ public class TokenRequest {
     private String redirectUri;
     @JsonProperty("grant_type")
     private String grantType;
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public void setClientId(String clientId) {
         this.clientId = clientId;

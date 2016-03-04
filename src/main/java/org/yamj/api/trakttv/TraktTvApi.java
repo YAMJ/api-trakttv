@@ -38,7 +38,8 @@ import org.yamj.api.common.exception.ApiExceptionType;
 import org.yamj.api.common.http.DigestedResponse;
 import org.yamj.api.common.http.DigestedResponseReader;
 import org.yamj.api.common.http.SimpleHttpClientBuilder;
-import org.yamj.api.trakttv.auth.TokenRequest;
+import org.yamj.api.trakttv.auth.PinRequest;
+import org.yamj.api.trakttv.auth.RefreshRequest;
 import org.yamj.api.trakttv.auth.TokenResponse;
 import org.yamj.api.trakttv.service.*;
 import retrofit.RequestInterceptor;
@@ -54,6 +55,7 @@ import retrofit.converter.JacksonConverter;
 public class TraktTvApi {
 
     private static final Logger LOG = LoggerFactory.getLogger(TraktTvApi.class);
+    private static final Charset UTF8 = Charset.forName("UTF-8");
 
     private static final String TRAKT_API_URL = "https://api-v2launch.trakt.tv";
     private static final String TRAKT_TOKEN_URL = TRAKT_API_URL + "/oauth/token";
@@ -62,12 +64,12 @@ public class TraktTvApi {
     private static final String HEADER_TRAKT_API_VERSION = "trakt-api-version";
     private static final String HEADER_TRAKT_API_VERSION_2 = "2";
     private static final String EMPTY_URL = "";
-
+    private static final String REDIRECT_URI = "urn:ietf:wg:oauth:2.0:oob";
+    
     private final String clientId;
     private final String clientSecret;
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
-    private static final Charset UTF8 = Charset.forName("UTF-8");
 
     private String accessToken;
     private boolean isDebug;
@@ -145,29 +147,48 @@ public class TraktTvApi {
         return restAdapter;
     }
 
-    /**
-     * Authorization
-     *
-     * @param pin
-     * @return
-     * @throws TraktTvException
-     */
+    
     public TokenResponse requestAccessTokenByPin(final String pin) throws TraktTvException {
         StringEntity body;
         try {
-            TokenRequest request = new TokenRequest();
+            PinRequest request = new PinRequest();
+            request.setPin(pin);
             request.setClientId(clientId);
             request.setClientSecret(clientSecret);
-            request.setCode(pin);
+            request.setRedirectUri(REDIRECT_URI);
             request.setGrantType("authorization_code");
-            request.setRedirectUri("urn:ietf:wg:oauth:2.0:oob");
             body = new StringEntity(objectMapper.writeValueAsString(request), UTF8);
         } catch (Exception e) {
             throw new TraktTvException(ApiExceptionType.MAPPING_FAILED, "Failed to build request body", e);
         }
 
         LOG.debug("Request authorization via PIN");
+        return requestToken(body);
+    }
 
+    public TokenResponse requestAccessTokenByRefresh(final String refreshToken) throws TraktTvException {
+        return requestAccessTokenByRefresh(refreshToken, REDIRECT_URI);
+    }
+
+    public TokenResponse requestAccessTokenByRefresh(final String refreshToken, final String redirectUri) throws TraktTvException {
+        StringEntity body;
+        try {
+            RefreshRequest request = new RefreshRequest();
+            request.setRefreshToken(refreshToken);
+            request.setClientId(clientId);
+            request.setClientSecret(clientSecret);
+            request.setRedirectUri(redirectUri);
+            request.setGrantType("refresh_token");
+            body = new StringEntity(objectMapper.writeValueAsString(request), UTF8);
+        } catch (Exception e) {
+            throw new TraktTvException(ApiExceptionType.MAPPING_FAILED, "Failed to build request body");
+        }
+            
+        LOG.debug("Request authorization via refresh token");
+        return requestToken(body);
+    }
+
+    private TokenResponse requestToken(StringEntity body) throws TraktTvException {
         try {
             HttpPost httpPost = new HttpPost();
             httpPost.setURI(new URI(TRAKT_TOKEN_URL));
@@ -182,7 +203,7 @@ public class TraktTvApi {
                 case 400:
                     throw new TraktTvException(ApiExceptionType.MAPPING_FAILED, "Request couldn't be parsed", 400, EMPTY_URL);
                 case 401:
-                    throw new TraktTvException(ApiExceptionType.AUTH_FAILURE, "OAuth must be provided", 401, EMPTY_URL);
+                    throw new TraktTvException(ApiExceptionType.AUTH_FAILURE, "The provided authorization grant is invalid, expired, revoked or does not match the redirection URI", 401, EMPTY_URL);
                 case 403:
                     throw new TraktTvException(ApiExceptionType.AUTH_FAILURE, "Invalid API key or unapproved app", 403, EMPTY_URL);
                 case 422:
@@ -200,7 +221,7 @@ public class TraktTvApi {
             throw new TraktTvException(ApiExceptionType.CONNECTION_ERROR, "Request failed", 503, EMPTY_URL, e);
         }
     }
-
+    
     // SERVICES
     public MovieService movieService() {
         return getRestAdapter().create(MovieService.class);
