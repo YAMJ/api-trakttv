@@ -58,7 +58,7 @@ public class SyncEpisode extends AbstractJsonMapping {
     }
 
     public SyncEpisode collectedAt(DateTime collectedAt) {
-        this.collectedAt = collectedAt;
+        this.collectedAt = collectedAt == null ? null : collectedAt.withMillisOfSecond(0);
         return this;
     }
 
@@ -71,7 +71,7 @@ public class SyncEpisode extends AbstractJsonMapping {
     }
 
     public SyncEpisode watchedAt(DateTime watchedAt) {
-        this.watchedAt = watchedAt;
+        this.watchedAt = watchedAt == null ? null : watchedAt.withMillisOfSecond(0);
         return this;
     }
 }

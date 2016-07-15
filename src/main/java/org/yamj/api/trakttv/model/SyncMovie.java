@@ -79,7 +79,7 @@ public class SyncMovie extends AbstractJsonMapping {
     }
 
     public SyncMovie collectedAt(DateTime collectedAt) {
-        this.collectedAt = collectedAt;
+        this.collectedAt = collectedAt == null ? null : collectedAt.withMillisOfSecond(0);
         return this;
     }
 
@@ -92,7 +92,7 @@ public class SyncMovie extends AbstractJsonMapping {
     }
 
     public SyncMovie watchedAt(DateTime watchedAt) {
-        this.watchedAt = watchedAt;
+        this.watchedAt = watchedAt == null ? null : watchedAt.withMillisOfSecond(0);
         return this;
     }
 }
