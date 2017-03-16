@@ -1,0 +1,5 @@
+org.yamj.api.trakttv.auth
+org.yamj.api.trakttv.model
+org.yamj.api.trakttv.model.enumeration
+org.yamj.api.trakttv
+org.yamj.api.trakttv.service
