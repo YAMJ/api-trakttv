@@ -65,7 +65,7 @@ public class SearchServiceTest extends AbstractTests {
     public void searchMovieByTMDB() {
         LOG.info("searchMovieByTMDB");
         List<SearchResult> searchResults = getTraktTvApi().searchService().idSearch(IdType.TMDB, "206647");
-        Assert.assertEquals(2, searchResults.size());
+        Assert.assertEquals(3, searchResults.size());
         Movie movie = null;
         for (SearchResult searchResult : searchResults) {
             if (searchResult.getMovie() != null) {
