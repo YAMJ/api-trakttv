@@ -13,7 +13,7 @@
 
     <groupId>org.yamj</groupId>
     <artifactId>api-trakttv</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>API-TraktTV</name>
@@ -67,8 +67,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <distribution.format>zip</distribution.format>
-        <version.jackson>2.8.7</version.jackson>
-        <version.slf4j>1.7.24</version.slf4j>
+        <version.jackson>2.9.9</version.jackson>
+        <version.slf4j>1.7.26</version.slf4j>
         <version.retrofit>1.9.0</version.retrofit>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
@@ -80,12 +80,12 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.5</version>
+            <version>3.9</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.5</version>
+            <version>2.6</version>
         </dependency>
         <!--TESTING-->
         <dependency>

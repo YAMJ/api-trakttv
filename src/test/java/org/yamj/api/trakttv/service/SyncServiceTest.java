@@ -29,7 +29,13 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yamj.api.trakttv.AbstractTests;
-import org.yamj.api.trakttv.model.*;
+import org.yamj.api.trakttv.model.Ids;
+import org.yamj.api.trakttv.model.LastActivities;
+import org.yamj.api.trakttv.model.SyncItems;
+import org.yamj.api.trakttv.model.SyncMovie;
+import org.yamj.api.trakttv.model.SyncResponse;
+import org.yamj.api.trakttv.model.TrackedMovie;
+import org.yamj.api.trakttv.model.TrackedShow;
 import org.yamj.api.trakttv.model.enumeration.Extended;
 
 public class SyncServiceTest extends AbstractTests {
@@ -57,7 +63,7 @@ public class SyncServiceTest extends AbstractTests {
     @Ignore
     public void getCollectionMovies() {
         LOG.info("getCollectionMovies");
-        final List<TrackedMovie> list = getTraktTvApi().syncService().getCollectionMovies(Extended.MINIMAL);
+        final List<TrackedMovie> list = getTraktTvApi().syncService().getCollectionMovies(Extended.NONE);
         for (TrackedMovie tracked : list) {
             LOG.debug("{}", tracked);
         }
@@ -66,7 +72,7 @@ public class SyncServiceTest extends AbstractTests {
     @Ignore
     public void getCollectionShows() {
         LOG.info("getCollectionShows");
-        final List<TrackedShow> list = getTraktTvApi().syncService().getCollectionShows(Extended.MINIMAL);
+        final List<TrackedShow> list = getTraktTvApi().syncService().getCollectionShows(Extended.NONE);
         for (TrackedShow tracked : list) {
             LOG.debug("{}", tracked);
         }
@@ -75,7 +81,7 @@ public class SyncServiceTest extends AbstractTests {
     @Ignore
     public void getWatchedMovies() {
         LOG.info("getWatchedMovies");
-        final List<TrackedMovie> list = getTraktTvApi().syncService().getWatchedMovies(Extended.MINIMAL);
+        final List<TrackedMovie> list = getTraktTvApi().syncService().getWatchedMovies(Extended.NONE);
         for (TrackedMovie tracked : list) {
             LOG.debug("{}", tracked);
         }
@@ -84,7 +90,7 @@ public class SyncServiceTest extends AbstractTests {
     @Ignore
     public void getWatchedShows() {
         LOG.info("getWatchedShows");
-        final List<TrackedShow> list = getTraktTvApi().syncService().getWatchedShows(Extended.MINIMAL);
+        final List<TrackedShow> list = getTraktTvApi().syncService().getWatchedShows(Extended.NONE);
         for (TrackedShow tracked : list) {
             LOG.debug("{}", tracked);
         }

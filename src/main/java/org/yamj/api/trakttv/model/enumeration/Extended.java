@@ -23,6 +23,8 @@ package org.yamj.api.trakttv.model.enumeration;
 
 public enum Extended {
 
+    // none (default)
+    NONE("none"),
     // minimal info
     MINIMAL("min"),
     // minimal info and images
@@ -30,7 +32,9 @@ public enum Extended {
     // complete info
     FULL("full"),
     // complete info and all images
-    FULLIMAGES("full,images");
+    FULLIMAGES("full,images"),
+    // metadata from movie file
+    METADATA("metadata");
 
     private final String value;
 

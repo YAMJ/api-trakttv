@@ -44,6 +44,7 @@ import org.yamj.api.trakttv.auth.TokenResponse;
 import org.yamj.api.trakttv.service.*;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
+import retrofit.RestAdapter.LogLevel;
 import retrofit.client.ApacheClient;
 import retrofit.converter.JacksonConverter;
 
@@ -124,6 +125,7 @@ public class TraktTvApi {
                     .setEndpoint(TRAKT_API_URL)
                     .setClient(new ApacheClient(httpClient))
                     .setConverter(new JacksonConverter(objectMapper))
+                    .setLogLevel(LogLevel.NONE)
                     .setErrorHandler(new TraktTvErrorHandler())
                     .setRequestInterceptor(new RequestInterceptor() {
                         @Override

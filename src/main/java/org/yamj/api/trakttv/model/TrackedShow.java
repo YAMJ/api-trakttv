@@ -36,14 +36,17 @@ public class TrackedShow extends AbstractJsonMapping {
     private Show show;
     @JsonProperty("seasons")
     private List<TrackedSeason> seasons;
+    
     @JsonProperty("last_collected_at")
     private DateTime lastCollectedAt;
-    @JsonProperty("listed_at")
-    private DateTime listedAt;
-    @JsonProperty("plays")
-    private Integer plays;
+    @JsonProperty("updated_at")
+    private DateTime updatedAt;    
     @JsonProperty("last_watched_at")
     private DateTime lastWatchedAt;
+    @JsonProperty("last_updated_at")
+    private DateTime lastUpdatedAt;
+    @JsonProperty("plays")
+    private int plays;
     @JsonProperty("aired")
     private Integer aired;
     @JsonProperty("completed")
@@ -77,31 +80,40 @@ public class TrackedShow extends AbstractJsonMapping {
         this.lastCollectedAt = lastCollectedAt;
     }
 
-    public DateTime getListedAt() {
-        return listedAt;
-    }
+    public DateTime getUpdatedAt() {
+		return updatedAt;
+	}
 
-    public void setListedAt(DateTime listedAt) {
-        this.listedAt = listedAt;
-    }
+	public void setUpdatedAt(DateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
 
-    public Integer getPlays() {
-        return plays;
-    }
-
-    public void setPlays(Integer plays) {
-        this.plays = plays;
-    }
 
     public DateTime getLastWatchedAt() {
-        return lastWatchedAt;
-    }
+		return lastWatchedAt;
+	}
 
-    public void setLastWatchedAt(DateTime lastWatchedAt) {
-        this.lastWatchedAt = lastWatchedAt;
-    }
+	public void setLastWatchedAt(DateTime lastWatchedAt) {
+		this.lastWatchedAt = lastWatchedAt;
+	}
 
-    public Integer getAired() {
+	public DateTime getLastUpdatedAt() {
+		return lastUpdatedAt;
+	}
+
+	public void setLastUpdatedAt(DateTime lastUpdatedAt) {
+		this.lastUpdatedAt = lastUpdatedAt;
+	}
+
+	public int getPlays() {
+		return plays;
+	}
+
+	public void setPlays(int plays) {
+		this.plays = plays;
+	}
+
+	public Integer getAired() {
         return aired;
     }
 

@@ -35,10 +35,12 @@ public class TrackedMovie extends AbstractJsonMapping {
     private Movie movie;
     @JsonProperty("collected_at")
     private DateTime collectedAt;
+    @JsonProperty("updated_at")
+    private DateTime updatedAt;
     @JsonProperty("last_watched_at")
     private DateTime lastWatchedAt;
-    @JsonProperty("listed_at")
-    private DateTime listedAt;
+    @JsonProperty("last_updated_at")
+    private DateTime lastUpdatedAt;
     @JsonProperty("plays")
     private int plays;
 
@@ -58,7 +60,15 @@ public class TrackedMovie extends AbstractJsonMapping {
         this.collectedAt = collectedAt;
     }
 
-    public DateTime getLastWatchedAt() {
+    public DateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(DateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public DateTime getLastWatchedAt() {
         return lastWatchedAt;
     }
 
@@ -66,23 +76,19 @@ public class TrackedMovie extends AbstractJsonMapping {
         this.lastWatchedAt = lastWatchedAt;
     }
 
-    public DateTime getListedAt() {
-        return listedAt;
-    }
+    public DateTime getLastUpdatedAt() {
+		return lastUpdatedAt;
+	}
 
-    public void setListedAt(DateTime listedAt) {
-        this.listedAt = listedAt;
-    }
+	public void setLastUpdatedAt(DateTime lastUpdatedAt) {
+		this.lastUpdatedAt = lastUpdatedAt;
+	}
 
-    public int getPlays() {
+	public int getPlays() {
         return plays;
     }
 
     public void setPlays(int plays) {
         this.plays = plays;
-    }
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
     }
 }
